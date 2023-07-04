@@ -36,7 +36,7 @@ st.text("D")
 
 # Query de prueba
 conexion_string = "mysql+pymysql://testeo:1234@127.0.0.1:3306/world"
-engine = create_engine(conexion_string)
+engine = create_engine(conexion_string,pool_pre_ping=True)
 query = """
     SELECT cc.Name as pais, count(c.ID) as cantidad_ciudades 
     FROM city c
