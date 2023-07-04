@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import sqlalchemy
 from sqlalchemy import create_engine
-import socket
 
 
 # Título de la página
@@ -32,10 +31,6 @@ st.markdown("---")
 # Créditos
 st.text("D")
 #
-
-
-ip = socket.gethostbyname(socket.gethostname())
-print("Dirección IP del entorno de Streamlit Cloud:", ip)
 
 
 
