@@ -33,7 +33,7 @@ st.markdown("---")
 st.text("D")
 
 # Query de prueba
-conexion_string = "mysql+pymysql://root:1234@localhost/world"
+conexion_string = mysql+pymysql://root:1234@127.0.0.1:3306/world
 engine = create_engine(conexion_string)
 query = """
     SELECT cc.Name as pais, count(c.ID) as cantidad_ciudades 
