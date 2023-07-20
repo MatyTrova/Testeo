@@ -159,18 +159,18 @@ plt.legend(title='Categorías', title_fontsize='12', loc='center left', bbox_to_
 st.pyplot(plt)
 
 # Agregar el gráfico pequeño en el centro de la tercera fila
-col6, col7, col8 = st.columns([1, 4, 1])
+#col6, col7, col8 = st.columns([1, 4, 1])
 
-with col6:
-    st.write('')
+#with col6:
+ #   st.write('')
 
-with col7:
-    st.subheader('Gráfico Pequeño')
-    st.pyplot(plt)
+#with col7:
+#    st.subheader('Gráfico Pequeño')
+#    st.pyplot(plt)
     # Contenido del gráfico pequeño
 
-with col8:
-    st.write('')
+#with col8:
+ #   st.write('')
 
 # Agregar los 3 gráficos cuadrados en la cuarta fila
 col9, col10  = st.columns(2)
