@@ -166,6 +166,7 @@ with col6:
 
 with col7:
     st.subheader('Gráfico Pequeño')
+    st.pyplot(plt)
     # Contenido del gráfico pequeño
 
 with col8:
