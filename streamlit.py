@@ -124,6 +124,15 @@ with col5:
 st.write('---')
 st.subheader('Gráfico de Líneas')
 # query
+# Filtrar utilizando expresiones regulares
+filtro_bueno1 = df["nube de palabras"].str.contains("buen", regex=True)
+filtro_bueno2 = df["nube de palabras"].str.contains("me gust", regex=True)
+filtro_bueno3 = df["nube de palabras"] == "si"
+filtro_bueno4 = df["nube de palabras"].str.contains("excelente", regex=True)
+resultados1 = df[filtro_bueno1]
+resultados2 = df[filtro_bueno2]
+resultados3 = df[filtro_bueno3]
+resultados4 = df[filtro_bueno4]
 bueno = pd.concat([resultados1,resultados2,resultados3,resultados4]).shape[0]
 filtro_neutro = df["nube de palabras"].str.contains("no se", regex=True)
 filtro_neutro2= df["nube de palabras"].str.contains("sin mensaje", regex=True)
