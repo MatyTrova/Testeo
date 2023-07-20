@@ -2,6 +2,12 @@ import streamlit as st
 import pandas as pd
 import sqlalchemy
 from sqlalchemy import create_engine
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
+
 
 
 # Título de la página
@@ -30,21 +36,171 @@ st.markdown("---")
 
 # Créditos
 st.text("D")
-#
+
+# Query de prueba 
 
 
+# Simulación de datos y configuración de clientes
+# Puedes reemplazar esta simulación con una base de datos o algún otro mecanismo de almacenamiento real
+clientes = {
+    'cliente1': {
+        'nombre': 'Cliente 1',
+        'datos': [1, 2, 3, 4, 5],
+        'configuracion': {
+            'color': 'blue',
+            'mostrar_grafico': True
+        }
+    },
+    'cliente2': {
+        'nombre': 'Cliente 2',
+        'datos': [6, 7, 8, 9, 10],
+        'configuracion': {
+            'color': 'green',
+            'mostrar_grafico': False
+        }
+    }
+}
 
-# Query de prueba
-conexion_string = "mysql+pymysql://testeo:1234@127.0.0.1:3306/world"
-engine = create_engine(conexion_string,pool_pre_ping=True)
-query = """
-    SELECT cc.Name as pais, count(c.ID) as cantidad_ciudades 
-    FROM city c
-    JOIN country cc ON (c.CountryCode = cc.Code)
-    GROUP BY pais
-    HAVING cantidad_ciudades > 100
-    ORDER BY 2 DESC;
-"""
-df_sql = pd.read_sql(query, engine)
-# Mostrar el dataframe
-st.dataframe(df_sql)
+# Autenticación del cliente
+cliente_id = st.text_input('Ingrese su ID de cliente:')
+if cliente_id not in clientes:
+    st.error('ID de cliente no válido. Intente nuevamente con un ID válido.')
+    st.stop()
+
+# Obtener datos y configuración del cliente autenticado
+cliente_actual = clientes[cliente_id]
+nombre_cliente = cliente_actual['nombre']
+datos_cliente = cliente_actual['datos']
+configuracion_cliente = cliente_actual['configuracion']
+
+# Mostrar el dashboard personalizado
+st.title(f'Dashboard de {nombre_cliente}')
+
+#funcion para hacer df, usando size para la cantidad en los metodos de numpy
+def hacerDf(size):
+    df = pd.DataFrame()
+    df["numero"] = np.random.choice(["123","4345","75375423","1243e125","624532","67453","3543512","523523"],size)
+    df["edad"] = np.random.randint(1,21,size)
+    df["nube de palabras"] = np.random.choice(["muy bueno","si","me gusta","muy buen producto","me gustó","me gustó", "mal producto" ,"buen producto" ,"sin mensaje", "me gustó", "excelente" ,"buenísimo" ,"no se"],size)
+    dates = pd.date_range("01-01-2023","07-01-2023")
+    df["fecha"] = np.random.choice(dates,size)
+    return df
+df = hacerDf(200)
+
+# Crear 5 tarjetas en la primera fila
+col1, col2, col3, col4, col5 = st.beta_columns(5)
+
+with col1:
+    with st.beta_container():
+        st.subheader('Tarjeta 1')
+        st.write("tarjeta1")
+        # Contenido de la tarjeta 1
+
+with col2:
+    with st.beta_container():
+        st.subheader('Tarjeta 2')
+        st.write("tarjeta2")
+        # Contenido de la tarjeta 2
+
+with col3:
+    with st.beta_container():
+        st.subheader('Tarjeta 3')
+        st.write("tarjeta3")
+        # Contenido de la tarjeta 3
+
+with col4:
+    with st.beta_container():
+        st.subheader('Tarjeta 4')
+        st.write("tarjeta4")
+        # Contenido de la tarjeta 4
+
+with col5:
+    with st.beta_container():
+        st.subheader('Tarjeta 5')
+        st.write("tarjeta5")
+        # Contenido de la tarjeta 5
+
+# Agregar el gráfico de líneas en la segunda fila, centrado
+st.write('---')
+st.subheader('Gráfico de Líneas')
+# query
+bueno = pd.concat([resultados1,resultados2,resultados3,resultados4]).shape[0]
+filtro_neutro = df["nube de palabras"].str.contains("no se", regex=True)
+filtro_neutro2= df["nube de palabras"].str.contains("sin mensaje", regex=True)
+
+resultados6 = df[filtro_neutro]
+resultados7 = df[filtro_neutro2]
+
+neutro = pd.concat([resultados6, resultados7]).shape[0]
+# Filtrar utilizando expresiones regulares
+filtro_malo = df["nube de palabras"].str.contains("mal", regex=True)
+
+resultados5 = df[filtro_malo]
+
+bad = resultados5.shape[0]
+bueno["nube de palabras"] = "Positivo"
+bad["nube de palabras"] = "Negativo"
+neutro["nube de palabras"] = "Neutro"
+df_time = pd.concat([bueno,bad])
+df_time["fecha"] =  df_time["fecha"].dt.month_name()
+xx = df_time[["nube de palabras","fecha"]].groupby(["fecha","nube de palabras"]).value_counts().reset_index()
+# Crear un gráfico de líneas utilizando Seaborn
+sns.set()
+sns.set_palette("Set1")
+sns.lineplot(data=xx, x='fecha', y='count', hue='nube de palabras', linewidth=5)
+# Configurar el título y etiquetas de los ejes
+plt.title('Reviews Mensuales')
+plt.xlabel('')
+plt.ylabel('')
+# Rotar las etiquetas del eje x para una mejor visualización
+plt.xticks(rotation=45)
+plt.legend(title='Categorías', title_fontsize='12', loc='center left', bbox_to_anchor=(1, 1), fontsize='12')
+# Mostrar el gráfico de líneas
+plt.show()
+
+# Agregar el gráfico pequeño en el centro de la tercera fila
+col6, col7, col8 = st.beta_columns([1, 4, 1])
+
+with col6:
+    st.write('')
+
+with col7:
+    st.subheader('Gráfico Pequeño')
+    # Contenido del gráfico pequeño
+
+with col8:
+    st.write('')
+
+# Agregar los 3 gráficos cuadrados en la cuarta fila
+col9, col10, col11 = st.beta_columns(3)
+
+with col9:
+    with st.beta_container():
+        st.subheader('Gráfico Cuadrado 1')
+    
+
+        # Crear una lista de palabras
+        # Unir todos los textos en una sola cadena
+        texto_completo = ' '.join(df["nube de palabras"])
+        # Crear el objeto WordCloud con fondo blanco
+        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(texto_completo)
+
+        # Configurar el gráfico
+        plt.figure(figsize=(10, 5))
+        plt.imshow(wordcloud, interpolation='bilinear')
+        plt.axis('off')
+
+        # Mostrar el gráfico de nube de palabras
+        plt.show()
+
+        # Contenido del gráfico cuadrado 1
+
+with col10:
+    with st.beta_container():
+        st.subheader('Gráfico Cuadrado 2')
+        # Contenido del gráfico cuadrado 2
+
+with col11:
+    with st.beta_container():
+        st.subheader('Gráfico Cuadrado 3')
+        # Contenido del gráfico cuadrado 3
