@@ -91,33 +91,28 @@ df = hacerDf(200)
 col1, col2, col3, col4, col5 = st.columns(5)
 
 with col1:
-    with st.beta_container():
-        st.subheader('Tarjeta 1')
-        st.write("tarjeta1")
+    st.subheader('Tarjeta 1')
+    st.write("tarjeta1")
         # Contenido de la tarjeta 1
 
 with col2:
-    with st.beta_container():
-        st.subheader('Tarjeta 2')
-        st.write("tarjeta2")
+    st.subheader('Tarjeta 2')
+    st.write("tarjeta2")
         # Contenido de la tarjeta 2
 
 with col3:
-    with st.beta_container():
-        st.subheader('Tarjeta 3')
-        st.write("tarjeta3")
+    st.subheader('Tarjeta 3')
+    st.write("tarjeta3")
         # Contenido de la tarjeta 3
 
 with col4:
-    with st.beta_container():
-        st.subheader('Tarjeta 4')
-        st.write("tarjeta4")
+    st.subheader('Tarjeta 4')
+    st.write("tarjeta4")
         # Contenido de la tarjeta 4
 
 with col5:
-    with st.beta_container():
-        st.subheader('Tarjeta 5')
-        st.write("tarjeta5")
+    st.subheader('Tarjeta 5')
+    st.write("tarjeta5")
         # Contenido de la tarjeta 5
 
 # Agregar el gráfico de líneas en la segunda fila, centrado
@@ -168,7 +163,7 @@ plt.legend(title='Categorías', title_fontsize='12', loc='center left', bbox_to_
 plt.show()
 
 # Agregar el gráfico pequeño en el centro de la tercera fila
-col6, col7, col8 = st.beta_columns([1, 4, 1])
+col6, col7, col8 = st.columns([1, 4, 1])
 
 with col6:
     st.write('')
@@ -181,7 +176,7 @@ with col8:
     st.write('')
 
 # Agregar los 3 gráficos cuadrados en la cuarta fila
-col9, col10, col11 = st.beta_columns(3)
+col9, col10, col11 = st.columns(3)
 
 with col9:
     with st.beta_container():
@@ -205,11 +200,9 @@ with col9:
         # Contenido del gráfico cuadrado 1
 
 with col10:
-    with st.beta_container():
-        st.subheader('Gráfico Cuadrado 2')
+    st.subheader('Gráfico Cuadrado 2')
         # Contenido del gráfico cuadrado 2
 
 with col11:
-    with st.beta_container():
-        st.subheader('Gráfico Cuadrado 3')
+    st.subheader('Gráfico Cuadrado 3')
         # Contenido del gráfico cuadrado 3
