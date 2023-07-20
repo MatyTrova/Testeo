@@ -88,7 +88,7 @@ def hacerDf(size):
 df = hacerDf(200)
 
 # Crear 5 tarjetas en la primera fila
-col1, col2, col3, col4, col5 = st.beta_columns(5)
+col1, col2, col3, col4, col5 = st.columns(5)
 
 with col1:
     with st.beta_container():
