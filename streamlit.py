@@ -175,7 +175,7 @@ with col8:
 col9, col10, col11 = st.columns(3)
 
 with col9:
-    st.subheader('Gráfico Cuadrado 1')
+    st.subheader('Gr')
     
 
         # Crear una lista de palabras
