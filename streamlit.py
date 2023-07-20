@@ -156,7 +156,7 @@ plt.ylabel('')
 plt.xticks(rotation=45)
 plt.legend(title='Categorías', title_fontsize='12', loc='center left', bbox_to_anchor=(1, 1), fontsize='12')
 # Mostrar el gráfico de líneas
-plt.show()
+st.pyplot()
 
 # Agregar el gráfico pequeño en el centro de la tercera fila
 col6, col7, col8 = st.columns([1, 4, 1])
@@ -190,8 +190,7 @@ with col9:
     plt.axis('off')
 
         # Mostrar el gráfico de nube de palabras
-    plt.show()
-
+    st.pyplot()
         # Contenido del gráfico cuadrado 1
 
 with col10:
