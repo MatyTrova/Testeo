@@ -128,20 +128,16 @@ resultados1 = df[filtro_bueno1]
 resultados2 = df[filtro_bueno2]
 resultados3 = df[filtro_bueno3]
 resultados4 = df[filtro_bueno4]
-bueno = pd.concat([resultados1,resultados2,resultados3,resultados4]).shape[0]
+bueno = pd.concat([resultados1,resultados2,resultados3,resultados4])
 filtro_neutro = df["nube de palabras"].str.contains("no se", regex=True)
 filtro_neutro2= df["nube de palabras"].str.contains("sin mensaje", regex=True)
-
 resultados6 = df[filtro_neutro]
 resultados7 = df[filtro_neutro2]
-
-neutro = pd.concat([resultados6, resultados7]).shape[0]
+neutro = pd.concat([resultados6, resultados7])
 # Filtrar utilizando expresiones regulares
 filtro_malo = df["nube de palabras"].str.contains("mal", regex=True)
-
 resultados5 = df[filtro_malo]
-
-bad = resultados5.shape[0]
+bad = resultados5
 bueno["nube de palabras"] = "Positivo"
 bad["nube de palabras"] = "Negativo"
 neutro["nube de palabras"] = "Neutro"
