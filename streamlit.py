@@ -173,7 +173,7 @@ with col8:
     st.write('')
 
 # Agregar los 3 gráficos cuadrados en la cuarta fila
-col9, col10, col11 = st.columns(3)
+col9, col10  = st.columns(2)
 
 with col9:
     st.subheader('Gr')
@@ -197,7 +197,3 @@ with col9:
 with col10:
     st.subheader('Gráfico Cuadrado 2')
         # Contenido del gráfico cuadrado 2
-
-with col11:
-    st.subheader('Gráfico Cuadrado 3')
-        # Contenido del gráfico cuadrado 3
