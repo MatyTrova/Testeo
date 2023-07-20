@@ -175,23 +175,22 @@ with col8:
 col9, col10, col11 = st.columns(3)
 
 with col9:
-    with st.beta_container():
-        st.subheader('Gráfico Cuadrado 1')
+    st.subheader('Gráfico Cuadrado 1')
     
 
         # Crear una lista de palabras
         # Unir todos los textos en una sola cadena
-        texto_completo = ' '.join(df["nube de palabras"])
+    texto_completo = ' '.join(df["nube de palabras"])
         # Crear el objeto WordCloud con fondo blanco
-        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(texto_completo)
+    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(texto_completo)
 
         # Configurar el gráfico
-        plt.figure(figsize=(10, 5))
-        plt.imshow(wordcloud, interpolation='bilinear')
-        plt.axis('off')
+    plt.figure(figsize=(10, 5))
+    plt.imshow(wordcloud, interpolation='bilinear')
+    plt.axis('off')
 
         # Mostrar el gráfico de nube de palabras
-        plt.show()
+    plt.show()
 
         # Contenido del gráfico cuadrado 1
 
