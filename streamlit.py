@@ -11,7 +11,7 @@ import pymysql
 
 
 # Creamos la conexión
-conexion_string = st.secrets["DB_HOST"]
+conexion_string = st.secrets["DB_USERNAME"]
 engine = create_engine(conexion_string,pool_pre_ping=True)
 
 query = """
