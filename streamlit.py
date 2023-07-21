@@ -16,7 +16,7 @@ db_host = st.secrets["DB_HOST"]
 db_token = st.secrets["DB_TOKEN"]
 # Creamos la conexión
 conexion_string = f"mysql+pymysql://{db_username}:{db_password}@{db_host}/{db_token}"
-engine = create_engine(conexion_string,pool_pre_ping=True)
+engine = create_engine(conexion_string)
 
 query = """
     SELECT *
