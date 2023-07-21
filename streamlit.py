@@ -16,7 +16,7 @@ engine = create_engine(conexion_string,pool_pre_ping=True)
 
 query = """
     SELECT *
-    FROM experiencias;
+    FROM clientes;
 """
 df_sql = pd.read_sql(query, engine)
 
