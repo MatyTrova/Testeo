@@ -9,20 +9,16 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import pymysql
 
+
 # Creamos la conexión
-connection = pymysql.connect(
-  host= st.secrets["DB_HOST"],
-  port=3306,
-  user=st.secrets["DB_USERNAME"],
-  password= st.secrets["DB_PASSWORD"],
-  database="u307015747_dashboard_pec"
-)
+conexion_string = st.secrets["conexion_string"]
+engine = create_engine(conexion_string,pool_pre_ping=True)
 
 query = """
     SELECT *
     FROM clientes;
 """
-df_sql = pd.read_sql(query, connection)
+df_sql = pd.read_sql(query, engine)
 
 st.dataframe(df_sql)
 
