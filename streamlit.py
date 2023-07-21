@@ -20,7 +20,15 @@ query = """
 """
 df_sql = pd.read_sql(query, engine)
 
+
+query2 = """
+    SELECT *
+    FROM experiencias;
+"""
+df_sql2 = pd.read_sql(query2, engine)
+
 st.dataframe(df_sql)
+st.dataframe(df_sql2)
 
 # Título de la página
 st.title("****")
