@@ -1,4 +1,4 @@
-import streamlit as st
+fimport streamlit as st
 import pandas as pd
 import sqlalchemy
 from sqlalchemy import create_engine
@@ -23,7 +23,7 @@ query = """
     FROM experiencias;
 """
 df_sql = pd.read_sql(query, engine)
-
+df_sql.drop("hora",axis=1,inplace=True)
 
 st.dataframe(df_sql)
 
