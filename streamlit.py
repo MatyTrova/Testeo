@@ -10,8 +10,12 @@ from wordcloud import WordCloud
 import pymysql
 
 
+db_username = st.secrets["DB_USERNAME"]
+db_password = st.secrets["DB_PASSWORD"]
+db_host = st.secrets["DB_HOST"]
+db_token = st.secrets["DB_TOKEN"]
 # Creamos la conexión
-conexion_string = st.secrets["DB_USERNAME"]
+conexion_string = f"mysql+pymysql://{db_username}:{db_password}@{db_host}/{db_token}"
 engine = create_engine(conexion_string,pool_pre_ping=True)
 
 query = """
@@ -19,7 +23,10 @@ query = """
     FROM experiencias;
 """
 df_sql = pd.read_sql(query, engine)
+
+
 st.dataframe(df_sql)
+
 
 # Título de la página
 st.title("****")
