@@ -85,6 +85,7 @@ st.title(f'Dashboard de {nombre_cliente}')
 
 
 import streamlit as st
+import html
 
 # Crear 5 tarjetas en la primera fila
 col1, col2, col3, col4, col5 = st.columns(5)
@@ -140,7 +141,7 @@ with col4:
     st.write('<div class="tarjeta">', unsafe_allow_html=True)
     st.write('<div class="subheader">Intención de recompra</div>', unsafe_allow_html=True)
     st.write('<div class="contenido">', unsafe_allow_html=True)
-    st.write(escape(intencion_recompra))
+    st.write(html.escape(intencion_recompra))
     st.write('</div></div>', unsafe_allow_html=True)
 
 with col5:
@@ -149,6 +150,7 @@ with col5:
     st.write('<div class="contenido">', unsafe_allow_html=True)
     # Contenido de la tarjeta 5
     st.write('</div></div>', unsafe_allow_html=True)
+
 
 
 
