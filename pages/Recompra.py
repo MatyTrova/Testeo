@@ -7,7 +7,7 @@ import seaborn as sns
 import numpy as np
 from wordcloud import WordCloud
 import pymysql
-from matplotlib.dates import DateFormatter, DayLocator
+from matplotlib.dates import DateFormatter
 
 db_username = st.secrets["DB_USERNAME"]
 db_password = st.secrets["DB_PASSWORD"]
@@ -125,7 +125,6 @@ plt.xlabel('')
 plt.ylabel('')
 date_form = DateFormatter("%d %b")
 ax.xaxis.set_major_formatter(date_form)
-ax.xaxis.set_major_locator(DayLocator(interval=1))
 # Mostrar el gráfico
 gráfico1 = plt.gcf()
 st.pyplot(gráfico1)
