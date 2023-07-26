@@ -8,7 +8,6 @@ import numpy as np
 from wordcloud import WordCloud
 import pymysql
 from matplotlib.dates import DateFormatter, DayLocator
-import locale
 
 db_username = st.secrets["DB_USERNAME"]
 db_password = st.secrets["DB_PASSWORD"]
@@ -115,7 +114,6 @@ with col5:
 
 # gráfico de cantidad de conversaciones por fecha
 st.write("# Gráfico de lineas")
-locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 df_sql['fecha'] = pd.to_datetime(df_sql['fecha'])
 registros_por_dia = df_sql['fecha'].value_counts().reset_index()
 registros_por_dia.columns = ['fecha', 'cantidad']
