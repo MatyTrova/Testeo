@@ -35,7 +35,7 @@ intencion_recompra = len(df_sql.loc[(df_sql["journeyClassName"] == "EcommerceRec
 
 
 # Título de la página
-st.title("Experiencia de Feedback")
+st.title("Experiencia de Recompra")
 
 # Imagen
 #st.image("ruta/a/tu/imagen.jpg", caption="Imagen de ejemplo", use_column_width=True)
@@ -84,6 +84,9 @@ configuracion_cliente = cliente_actual['configuracion']
 st.title(f'Dashboard de {nombre_cliente}')
 
 
+# Importar la biblioteca de Streamlit
+import streamlit as st
+
 # Crear 5 tarjetas en la primera fila
 col1, col2, col3, col4, col5 = st.columns(5)
 
@@ -114,44 +117,40 @@ st.markdown(custom_css, unsafe_allow_html=True)
 
 # Contenido de las tarjetas
 with col1:
-    st.write('<div class="tarjeta">')
+    st.write('<div class="tarjeta">', unsafe_allow_html=True)
     st.subheader('Cantidad de conversaciones')
-    st.write('<div class="contenido">')
+    st.write('<div class="contenido">', unsafe_allow_html=True)
     st.write(cantidad_clientes)
-    st.write('</div>')
-    st.write('</div>')
+    st.write('</div></div>', unsafe_allow_html=True)
 
 with col2:
-    st.write('<div class="tarjeta">')
-    st.write('<div class="contenido">')
+    st.write('<div class="tarjeta">', unsafe_allow_html=True)
+    st.write('<div class="contenido">', unsafe_allow_html=True)
     st.subheader('Conversaciones terminadas')
     # Contenido de la tarjeta 2
-    st.write('</div>')
-    st.write('</div>')
+    st.write('</div></div>', unsafe_allow_html=True)
 
 with col3:
-    st.write('<div class="tarjeta">')
-    st.write('<div class="contenido">')
+    st.write('<div class="tarjeta">', unsafe_allow_html=True)
+    st.write('<div class="contenido">', unsafe_allow_html=True)
     st.subheader('Conversaciones pendientes')
     # Contenido de la tarjeta 3
-    st.write('</div>')
-    st.write('</div>')
+    st.write('</div></div>', unsafe_allow_html=True)
 
 with col4:
-    st.write('<div class="tarjeta">')
+    st.write('<div class="tarjeta">', unsafe_allow_html=True)
     st.subheader('Intención de recompra')
-    st.write('<div class="contenido">')
+    st.write('<div class="contenido">', unsafe_allow_html=True)
     st.write(intencion_recompra)
-    st.write('</div>')
-    st.write('</div>')
+    st.write('</div></div>', unsafe_allow_html=True)
 
 with col5:
-    st.write('<div class="tarjeta">')
-    st.write('<div class="contenido">')
+    st.write('<div class="tarjeta">', unsafe_allow_html=True)
+    st.write('<div class="contenido">', unsafe_allow_html=True)
     st.subheader('Disposición de recibir ofertas')
     # Contenido de la tarjeta 5
-    st.write('</div>')
-    st.write('</div>')
+    st.write('</div></div>', unsafe_allow_html=True)
+
 
 
 # gráfico de cantidad de conversaciones por fecha
