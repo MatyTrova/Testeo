@@ -110,7 +110,7 @@ custom_css = """
         font-size: 24px;
         color: #555;
     }
-    .intencion-recompra {
+    .mi-variable {
         font-size: 30px; /* Aumentar el tamaño de fuente de la variable */
         font-weight: bold;
         color: #ff0000; /* Cambiar color de la variable a rojo */
@@ -130,8 +130,8 @@ with col1:
 
 with col2:
     st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
+    st.markdown(f'<div class="mi-variable">{cantidad_clientes}</div>', unsafe_allow_html=True)  # Utilizar la clase "mi-variable"
     st.markdown('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)
-    st.markdown('<div class="contenido">', unsafe_allow_html=True)
     # Contenido de la tarjeta 2
     st.markdown('</div></div>', unsafe_allow_html=True)
 
