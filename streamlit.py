@@ -16,32 +16,48 @@ st.set_page_config(
     initial_sidebar_state="expanded"
     )
 
+# Obtener contraseña ingresada por el usuario
+businessnumber = int(st.text_input('Password:'))
+
 # Función principal
 def main():
 
-    # Contraseña válida (reemplaza con tu contraseña)
-    contraseña_valida = "1234"
+    
+    db_username = st.secrets["DB_USERNAME"]
+    db_password = st.secrets["DB_PASSWORD"]
+    db_host = st.secrets["DB_HOST"]
+    db_token = st.secrets["DB_TOKEN"]
+        # Creamos la conexión
+    conexion_string = f"mysql+pymysql://{db_username}:{db_password}@{db_host}/{db_token}"
+    engine = create_engine(conexion_string,pool_pre_ping=True)
+    query = """
+            SELECT DISTINCT businessPhoneNumber
+            FROM clientes ;
+    """
+    df_password = pd.read_sql(query, engine)
 
     # Función para verificar la contraseña ingresada
-    def verificar_contraseña(contraseña_ingresada):
-        return contraseña_ingresada == contraseña_valida
-
+    def verificar_contraseña(businessnumber):
+        for elemento in df_password["businessPhoneNumber"]:
+            if (businessnumber == elemento):
+                return True
+            else:
+                pass
+        return False  
     # Página de inicio
     def pagina_inicio():
         st.title("Página de Inicio")
-        st.write("Bienvenido a la página de inicio. Por favor, ingrese su contraseña.")
-        st.write("contraseña = 1234")
-        # Obtener contraseña ingresada por el usuario
-        cliente_id = st.text_input('Password:')
+        st.write("Bienvenido a la página de inicio. Por favor, ingrese su business number.")
+        st.write("passwords = 15550199539 , 56992717910 , 56945904447 ")
 
         # Verificar la contraseña
-        if cliente_id and verificar_contraseña(cliente_id):
+        if businessnumber and verificar_contraseña(businessnumber):
             st.success("Contraseña válida. Acceso concedido.")
             # Establecer el estado de autenticación de la sesión
             st.session_state.autenticado = True
             # Creamos la conexión
         else:
-            st.error('ID de cliente no válido. Intente nuevamente con un ID válido.')
+            st.error('Password no válido. Intente nuevamente con un número válido.')
 
     # FEEDBACK
     def mostrar_feedback():
@@ -57,10 +73,12 @@ def main():
         # Creamos la conexión
         conexion_string = f"mysql+pymysql://{db_username}:{db_password}@{db_host}/{db_token}"
         engine = create_engine(conexion_string,pool_pre_ping=True)
-        query = """
-            SELECT * 
-            FROM experiencias
-            WHERE journeyClassName = 'EcommerceFeedbackCompra';
+        # Query de Feedback
+        query = f"""
+            SELECT e.* , c.businessPhoneNumber, c.clientName
+            FROM experiencias e
+            JOIN clientes c ON (e.idCliente = c.idCliente)
+            WHERE e.journeyClassName = 'EcommerceFeedbackCompra' AND c.businessPhoneNumber = {businessnumber} ;
         """
         df_feedback = pd.read_sql(query, engine)
         df_feedback.drop("hora",axis=1,inplace=True)
@@ -202,10 +220,11 @@ def main():
         db_token = st.secrets["DB_TOKEN"]
         conexion_string = f"mysql+pymysql://{db_username}:{db_password}@{db_host}/{db_token}"
         engine = create_engine(conexion_string,pool_pre_ping=True)
-        query = """
-                SELECT * 
-                FROM experiencias
-                WHERE journeyClassName IN ('EcommerceRecompraDeProducto' ,'EcommerceRecompraParaHoy') ;
+        query = f"""
+                SELECT e.*, c.businessPhoneNumber, c.clientName
+                FROM experiencias e
+                JOIN clientes c ON (e.idCliente = c.idCliente)
+                WHERE e.journeyClassName IN ('EcommerceRecompraDeProducto' ,'EcommerceRecompraParaHoy') AND c.businessPhoneNumber = {businessnumber} ;
                 """
         df_recompra = pd.read_sql(query, engine)
         df_recompra.drop("hora",axis=1,inplace=True)
