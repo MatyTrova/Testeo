@@ -114,44 +114,44 @@ st.markdown(custom_css, unsafe_allow_html=True)
 
 # Contenido de las tarjetas
 with col1:
-    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
+    st.write('<div class="tarjeta">')
     st.subheader('Cantidad de conversaciones')
-    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    st.write('<div class="contenido">')
     st.write(cantidad_clientes)
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.write('</div>')
+    st.write('</div>')
 
 with col2:
-    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
-    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    st.write('<div class="tarjeta">')
+    st.write('<div class="contenido">')
     st.subheader('Conversaciones terminadas')
     # Contenido de la tarjeta 2
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.write('</div>')
+    st.write('</div>')
 
 with col3:
-    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
-    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    st.write('<div class="tarjeta">')
+    st.write('<div class="contenido">')
     st.subheader('Conversaciones pendientes')
     # Contenido de la tarjeta 3
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.write('</div>')
+    st.write('</div>')
 
 with col4:
-    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
+    st.write('<div class="tarjeta">')
     st.subheader('Intención de recompra')
-    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    st.write('<div class="contenido">')
     st.write(intencion_recompra)
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.write('</div>')
+    st.write('</div>')
 
 with col5:
-    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
-    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    st.write('<div class="tarjeta">')
+    st.write('<div class="contenido">')
     st.subheader('Disposición de recibir ofertas')
     # Contenido de la tarjeta 5
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.write('</div>')
+    st.write('</div>')
 
 
 # gráfico de cantidad de conversaciones por fecha
