@@ -109,6 +109,9 @@ custom_css = """
         font-size: 24px;
         color: #555;
     }
+    .card > .content {
+        margin-top: 10px;
+    }
 </style>
 """
 
@@ -151,6 +154,7 @@ with col5:
     st.markdown('<div class="contenido">')
     # Contenido de la tarjeta 5
     st.markdown('</div></div>')
+
 
 
 
