@@ -7,7 +7,8 @@ import seaborn as sns
 import numpy as np
 from wordcloud import WordCloud
 import pymysql
-from matplotlib.dates import DateFormatter
+from matplotlib.dates import DateFormatter, DayLocator
+import locale
 
 db_username = st.secrets["DB_USERNAME"]
 db_password = st.secrets["DB_PASSWORD"]
@@ -113,20 +114,20 @@ with col5:
         # Contenido de la tarjeta 5
 
 # gráfico de cantidad de conversaciones por fecha
-st.write("# Gráfico de lineas")
 df_sql['fecha'] = pd.to_datetime(df_sql['fecha'])
 registros_por_dia = df_sql['fecha'].value_counts().reset_index()
 registros_por_dia.columns = ['fecha', 'cantidad']
 plt.figure(figsize=(6, 4))  
 sns.set(style="whitegrid")
 ax = sns.lineplot(x="fecha", y="cantidad", marker='o', color='b',data=registros_por_dia)
-plt.title('Total de conversaciones')
 plt.xlabel('')
 plt.ylabel('')
-date_form = DateFormatter("%d %b")
+date_form = DateFormatter("%d/%m")
 ax.xaxis.set_major_formatter(date_form)
-# Mostrar el gráfico
+plt.tight_layout() 
+plt.show()
 gráfico1 = plt.gcf()
+st.write("# Total de conversaciones")
 st.pyplot(gráfico1)
 
 
