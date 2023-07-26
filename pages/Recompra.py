@@ -83,10 +83,6 @@ configuracion_cliente = cliente_actual['configuracion']
 # Mostrar el dashboard personalizado
 st.title(f'Dashboard de {nombre_cliente}')
 
-
-# Importar la biblioteca de Streamlit
-import streamlit as st
-
 # Crear 5 tarjetas en la primera fila
 col1, col2, col3, col4, col5 = st.columns(5)
 
@@ -116,27 +112,30 @@ custom_css = """
 
 # Agregar el estilo CSS personalizado utilizando st.markdown
 st.markdown(custom_css, unsafe_allow_html=True)
+
 hola = "gatito azul"
 # Variable de ejemplo con estilos en línea
-mi_variable_con_estilos = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
+tarjeta1 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{cantidad_clientes}</div>'
+tarjeta2 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
+tarjeta3 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
+tarjeta4 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{intencion_recompra}</div>'
+tarjeta5 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
 
 # Contenido de las tarjetas
 with col1:
-    st.markdown(mi_variable_con_estilos, unsafe_allow_html=True)
+    st.markdown(tarjeta1, unsafe_allow_html=True)
     st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
     st.markdown('<div class="contenido">', unsafe_allow_html=True)
-    st.write(cantidad_clientes)
     st.markdown('</div>', unsafe_allow_html=True)
 
 with col2:
-    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
-    st.markdown(f'<div class="mi-variable">{cantidad_clientes}</div>', unsafe_allow_html=True)  # Utilizar la clase "mi-variable"
-    st.markdown('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)
-    # Contenido de la tarjeta 2
+    st.markdown(tarjeta2, unsafe_allow_html=True)
+    st.markdown('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)  # Utilizar la clase "mi-variable"
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
     st.markdown('</div></div>', unsafe_allow_html=True)
 
 with col3:
-    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
+    st.markdown(tarjeta3, unsafe_allow_html=True)
     st.markdown('<div class="subheader">Conversaciones pendientes</div>', unsafe_allow_html=True)
     st.markdown('<div class="contenido">', unsafe_allow_html=True)
     # Contenido de la tarjeta 3
@@ -144,13 +143,13 @@ with col3:
 
 with col4:
         
-    st.markdown(f'<div class="tarjeta">{intencion_recompra}', unsafe_allow_html=True)
+    st.markdown(tarjeta4, unsafe_allow_html=True)
     st.markdown('<div class="subheader">Intención de recompra</div>', unsafe_allow_html=True)
     st.markdown('<div class="contenido">', unsafe_allow_html=True)
     st.markdown('</div></div>', unsafe_allow_html=True)
 
 with col5:
-    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
+    st.markdown(tarjeta5, unsafe_allow_html=True)
     st.markdown('<div class="subheader">Disposición de recibir ofertas</div>', unsafe_allow_html=True)
     st.markdown('<div class="contenido">', unsafe_allow_html=True)
     st.markdown('</div></div>', unsafe_allow_html=True)
