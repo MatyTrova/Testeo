@@ -28,7 +28,6 @@ def mostrar_recompra():
 
 # Función principal
 def main():
-    st.set_page_config(page_title="Mi Aplicación Streamlit")
 
     # Contraseña válida (reemplaza con tu contraseña)
     contraseña_valida = "mi_contraseña_secreta"
