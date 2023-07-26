@@ -120,7 +120,7 @@ with col1:
     st.write('<div class="tarjeta">', unsafe_allow_html=True)
     st.write('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
     st.write('<div class="contenido">', unsafe_allow_html=True)
-    st.write(cantidad_clientes)
+    st.write(str(cantidad_clientes))
     st.write('</div></div>', unsafe_allow_html=True)
 
 with col2:
@@ -141,7 +141,7 @@ with col4:
     st.write('<div class="tarjeta">', unsafe_allow_html=True)
     st.write('<div class="subheader">Intención de recompra</div>', unsafe_allow_html=True)
     st.write('<div class="contenido">', unsafe_allow_html=True)
-    st.write(html.escape(intencion_recompra))
+    st.write(html.escape(str(intencion_recompra)))
     st.write('</div></div>', unsafe_allow_html=True)
 
 with col5:
