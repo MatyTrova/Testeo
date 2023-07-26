@@ -6,4 +6,4 @@ matplotlib
 sqlalchemy
 pymysql
 wordcloud
-locate
+html
