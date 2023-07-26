@@ -125,33 +125,26 @@ def main():
         with col1:
             st.markdown(tarjeta1, unsafe_allow_html=True)
             st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
-            st.markdown('<div class="contenido">', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
         with col2:
             st.markdown(tarjeta2, unsafe_allow_html=True)
             st.markdown('<div class="subheader">Feedbacks positivos</div>', unsafe_allow_html=True)  # Utilizar la clase "mi-variable"
-            st.markdown('<div class="contenido">', unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col3:
             st.markdown(tarjeta3, unsafe_allow_html=True)
             st.markdown('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)
-            st.markdown('<div class="contenido">', unsafe_allow_html=True)
-            # Contenido de la tarjeta 3
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col4:
-                
             st.markdown(tarjeta4, unsafe_allow_html=True)
             st.markdown('<div class="subheader">Conversaciones pendientes</div>', unsafe_allow_html=True)
-            st.markdown('<div class="contenido">', unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col5:
             st.markdown(tarjeta5, unsafe_allow_html=True)
             st.markdown('<div class="subheader">Comentarios dejados</div>', unsafe_allow_html=True)
-            st.markdown('<div class="contenido">', unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
         # gráfico de cantidad de conversaciones por fecha
         # aquí
@@ -160,7 +153,7 @@ def main():
         reviews_por_dia1 = reviews_por_dia[reviews_por_dia["msgBody"].str.contains("Positivo")]
         reviews_por_dia2 = reviews_por_dia[reviews_por_dia["msgBody"].str.contains("Negativo")]
         fig, ax = plt.subplots()
-        fig.set_size_inches(6, 2)  
+        fig.set_size_inches(6, 3)  
         sns.set(style="whitegrid")
         ax = sns.lineplot(x="fecha", y="count", marker='o', color='green',data=reviews_por_dia1, label="Positivo",linewidth=4)
         plt.plot(reviews_por_dia2['fecha'], reviews_por_dia2['count'], marker='o', color='blue', label='Negativo',linewidth=4)
@@ -263,33 +256,26 @@ def main():
         with col1:
             st.markdown(tarjeta1, unsafe_allow_html=True)
             st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
-            st.markdown('<div class="contenido">', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
         with col2:
             st.markdown(tarjeta2, unsafe_allow_html=True)
             st.markdown('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)  # Utilizar la clase "mi-variable"
-            st.markdown('<div class="contenido">', unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col3:
             st.markdown(tarjeta3, unsafe_allow_html=True)
             st.markdown('<div class="subheader">Conversaciones pendientes</div>', unsafe_allow_html=True)
-            st.markdown('<div class="contenido">', unsafe_allow_html=True)
-            # Contenido de la tarjeta 3
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col4:
-                
             st.markdown(tarjeta4, unsafe_allow_html=True)
             st.markdown('<div class="subheader">Intención de recompra</div>', unsafe_allow_html=True)
-            st.markdown('<div class="contenido">', unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col5:
             st.markdown(tarjeta5, unsafe_allow_html=True)
             st.markdown('<div class="subheader">Disposición de recibir ofertas</div>', unsafe_allow_html=True)
-            st.markdown('<div class="contenido">', unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         # gráfico de cantidad de conversaciones por fecha
@@ -297,7 +283,7 @@ def main():
         registros_por_dia = df_recompra['fecha'].value_counts().reset_index()
         registros_por_dia.columns = ['fecha', 'cantidad']
         fig, ax = plt.subplots()
-        fig.set_size_inches(6, 2) 
+        fig.set_size_inches(6, 3) 
         sns.set(style="whitegrid")
         ax = sns.lineplot(x="fecha", y="cantidad", marker='o', color='b',data=registros_por_dia,linewidth=4)
         plt.xlabel('')
