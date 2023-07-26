@@ -9,6 +9,14 @@ from wordcloud import WordCloud
 import pymysql
 from matplotlib.dates import DateFormatter, DayLocator
 
+st.set_page_config(
+    page_title="Dashboard Experiencias",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="expanded"
+    )
+
+
 db_username = st.secrets["DB_USERNAME"]
 db_password = st.secrets["DB_PASSWORD"]
 db_host = st.secrets["DB_HOST"]
