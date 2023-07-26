@@ -117,30 +117,40 @@ st.markdown(custom_css, unsafe_allow_html=True)
 
 # Contenido de las tarjetas
 with col1:
+    st.write("### prueba")
+    st.markdown("### prueba") 
     st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
+    st.write("### prueba")
+    st.markdown("### prueba")    
     st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
+    st.write("### prueba")
+    st.markdown("### prueba")     
     st.markdown('<div class="contenido">', unsafe_allow_html=True)
-    st.write(cantidad_clientes)
+    st.write("### prueba")
+    st.markdown("### prueba")     
+    st.write(cantidad_clientes)    
     st.markdown('</div></div>', unsafe_allow_html=True)
+    st.write("### prueba")
+    st.markdown("### prueba")     
 
 with col2:
-    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
-    st.markdown('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)
-    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    st.markdown('prueba <div class="tarjeta"> prueba ', unsafe_allow_html=True)
+    st.markdown('prueba<div class="subheader">Conversaciones terminadas</div>prueba', unsafe_allow_html=True)
+    st.markdown('prueba<div class="contenido">prueba', unsafe_allow_html=True)
     # Contenido de la tarjeta 2
-    st.markdown('</div></div>', unsafe_allow_html=True)
+    st.markdown('prueba</div></div>prueba', unsafe_allow_html=True)
 
 with col3:
-    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
-    st.markdown('<div class="subheader">Conversaciones pendientes</div>', unsafe_allow_html=True)
-    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    st.markdown('"prueba"<div class="tarjeta">"prueba"', unsafe_allow_html=True)
+    st.markdown('"prueba"<div class="subheader">Conversaciones pendientes</div>"prueba"', unsafe_allow_html=True)
+    st.markdown('"prueba"<div class="contenido">"prueba"', unsafe_allow_html=True)
     # Contenido de la tarjeta 3
-    st.markdown('</div></div>', unsafe_allow_html=True)
+    st.markdown('"prueba"</div></div>"prueba"', unsafe_allow_html=True)
 
 with col4:
-    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
-    st.markdown('<div class="subheader">Intención de recompra</div>', unsafe_allow_html=True)
-    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    st.markdown('<div class="tarjeta : prueba "prueba"">', unsafe_allow_html=True)
+    st.markdown('<div class="subheader">Intención de recompra "prueba"</div>"prueba"', unsafe_allow_html=True)
+    st.markdown('<div class="contenido">"prueba"', unsafe_allow_html=True)
     st.write(intencion_recompra)
     st.markdown('</div></div>', unsafe_allow_html=True)
 
