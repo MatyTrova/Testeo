@@ -115,18 +115,39 @@ custom_css = """
 # Agregar el estilo CSS personalizado utilizando st.markdown
 st.markdown(custom_css, unsafe_allow_html=True)
 
-# Variable de ejemplo
-mi_variable = "Hola Mundo"
-
 # Contenido de las tarjetas
 with col1:
-    st.markdown(f'<div class="tarjeta">{mi_variable}', unsafe_allow_html=True)
+    st.markdown(f'<div class="tarjeta">{cantidad_clientes}', unsafe_allow_html=True)
     st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
     st.markdown('<div class="contenido">', unsafe_allow_html=True)
-    st.write(cantidad_clientes)
     st.markdown('</div></div>', unsafe_allow_html=True)
-        
 
+with col2:
+    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
+    st.markdown('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    # Contenido de la tarjeta 2
+    st.markdown('</div></div>', unsafe_allow_html=True)
+
+with col3:
+    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
+    st.markdown('<div class="subheader">Conversaciones pendientes</div>', unsafe_allow_html=True)
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    # Contenido de la tarjeta 3
+    st.markdown('</div></div>', unsafe_allow_html=True)
+
+with col4:
+        
+    st.markdown(f'<div class="tarjeta">{intencion_recompra}', unsafe_allow_html=True)
+    st.markdown('<div class="subheader">Intención de recompra</div>', unsafe_allow_html=True)
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    st.markdown('</div></div>', unsafe_allow_html=True)
+
+with col5:
+    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
+    st.markdown('<div class="subheader">Disposición de recibir ofertas</div>', unsafe_allow_html=True)
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    st.markdown('</div></div>', unsafe_allow_html=True)
 
 # gráfico de cantidad de conversaciones por fecha
 df_sql['fecha'] = pd.to_datetime(df_sql['fecha'])
