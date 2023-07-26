@@ -117,11 +117,15 @@ st.markdown(custom_css, unsafe_allow_html=True)
 
 # Contenido de las tarjetas
 with col1:
+    st.write(cantidad_clientes)    
     st.write('<div class="tarjeta">', unsafe_allow_html=True)
+    st.write(cantidad_clientes)    
     st.subheader('Cantidad de conversaciones')
+    st.write(cantidad_clientes)
     st.write('<div class="contenido">', unsafe_allow_html=True)
     st.write(cantidad_clientes)
     st.write('</div></div>', unsafe_allow_html=True)
+    st.write(cantidad_clientes)    
 
 with col2:
     st.write('<div class="tarjeta">', unsafe_allow_html=True)
