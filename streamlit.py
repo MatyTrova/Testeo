@@ -56,9 +56,6 @@ def pagina_protegida():
     st.title("Página Protegida")
     st.write("Esta es una página protegida que solo se muestra si el usuario ha ingresado la contraseña válida en la página de inicio.")
 
-# Configurar el diseño de la aplicación
-st.set_page_config(page_title="Aplicación Protegida")
-
 # Mostrar la página correspondiente según la ruta de la URL
 pagina = st.sidebar.selectbox("Seleccione una página", ["Inicio", "Página Protegida"])
 
