@@ -91,6 +91,7 @@ import streamlit as st
 col1, col2, col3, col4, col5 = st.columns(5)
 
 # Estilos CSS personalizados
+# Estilos CSS personalizados
 custom_css = """
 <style>
     .tarjeta {
@@ -106,8 +107,13 @@ custom_css = """
         color: #333;
     }
     .contenido {
-        font-size: 30px; /* Aumentar el tamaño de fuente a 30px */
+        font-size: 24px;
         color: #555;
+    }
+    .intencion-recompra {
+        font-size: 30px; /* Aumentar el tamaño de fuente de la variable */
+        font-weight: bold;
+        color: #ff0000; /* Cambiar color de la variable a rojo */
     }
 </style>
 """
