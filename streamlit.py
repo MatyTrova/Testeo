@@ -63,12 +63,14 @@ def main():
         st.write("Esta es una página protegida que solo se muestra si el usuario ha ingresado la contraseña válida en la página de inicio.")
 
     # Opciones del sidebar para seleccionar página
-    opciones_paginas = ["Inicio", "Feedback", "Recompra"]
+    opciones_paginas = ["Inicio", "Feedback", "Recompra","Prote"]
     pagina_seleccionada = st.sidebar.selectbox("Selecciona una página:", opciones_paginas)
 
     # Mostrar el contenido de la página seleccionada
     if pagina_seleccionada == "Inicio":
         pagina_inicio()
+    if pagina_seleccionada == "Prote" :
+        pagina_protegida()
     elif pagina_seleccionada == "Feedback":
         pagina_protegida()
         mostrar_feedback()
