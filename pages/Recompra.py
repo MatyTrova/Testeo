@@ -110,23 +110,23 @@ custom_css = """
         font-size: 24px;
         color: #555;
     }
-    .mi-variable {
-        font-size: 30px; /* Aumentar el tamaño de fuente de la variable */
-        font-weight: bold;
-        color: #ff0000; /* Cambiar color de la variable a rojo */
-    }
 </style>
 """
+
 
 # Agregar el estilo CSS personalizado utilizando st.markdown
 st.markdown(custom_css, unsafe_allow_html=True)
 
+# Variable de ejemplo con estilos en línea
+mi_variable_con_estilos = '<div class="tarjeta" style="font-size: 30px; color: #ff0000;">Hola Mundo</div>'
+
 # Contenido de las tarjetas
 with col1:
-    st.markdown(f'<div class="tarjeta">{cantidad_clientes}', unsafe_allow_html=True)
+    st.markdown(mi_variable_con_estilos, unsafe_allow_html=True)
     st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
     st.markdown('<div class="contenido">', unsafe_allow_html=True)
-    st.markdown('</div></div>', unsafe_allow_html=True)
+    st.write(cantidad_clientes)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 with col2:
     st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
