@@ -113,31 +113,73 @@ st.title(f'Dashboard de {nombre_cliente}')
 # Crear 5 tarjetas en la primera fila
 col1, col2, col3, col4, col5 = st.columns(5)
 
+# Estilos CSS personalizados
+# Estilos CSS personalizados
+custom_css = """
+<style>
+    .tarjeta {
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
+        text-align: center;
+    }
+    .subheader {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+    }
+    .contenido {
+        font-size: 24px;
+        color: #555;
+    }
+</style>
+"""
+
+
+# Agregar el estilo CSS personalizado utilizando st.markdown
+st.markdown(custom_css, unsafe_allow_html=True)
+
+hola = "gatito azul"
+# Variable de ejemplo con estilos en línea
+tarjeta1 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{cantidad_clientes}</div>'
+tarjeta2 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
+tarjeta3 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
+tarjeta4 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
+tarjeta5 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
+
+# Contenido de las tarjetas
 with col1:
-    st.subheader('Cantidad de conversaciones')
-    st.write(cantidad_clientes)
-        # Contenido de la tarjeta 1
+    st.markdown(tarjeta1, unsafe_allow_html=True)
+    st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 with col2:
-    st.subheader('Conversaciones terminadas')
-    st.write("")
-        # Contenido de la tarjeta 2
+    st.markdown(tarjeta2, unsafe_allow_html=True)
+    st.markdown('<div class="subheader">Feedbacks positivos</div>', unsafe_allow_html=True)  # Utilizar la clase "mi-variable"
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    st.markdown('</div></div>', unsafe_allow_html=True)
 
 with col3:
-    st.subheader('Conversaciones pendientes')
-    st.write("")
-        # Contenido de la tarjeta 3
+    st.markdown(tarjeta3, unsafe_allow_html=True)
+    st.markdown('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    # Contenido de la tarjeta 3
+    st.markdown('</div></div>', unsafe_allow_html=True)
 
 with col4:
-    st.subheader('Feedbacks positivos')
-    st.write("")
-        # Contenido de la tarjeta 4
+        
+    st.markdown(tarjeta4, unsafe_allow_html=True)
+    st.markdown('<div class="subheader">Conversaciones pendientes</div>', unsafe_allow_html=True)
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    st.markdown('</div></div>', unsafe_allow_html=True)
 
 with col5:
-    st.subheader('Tarjeta 5')
-    st.write("tarjeta5")
-        # Contenido de la tarjeta 5
-
+    st.markdown(tarjeta5, unsafe_allow_html=True)
+    st.markdown('<div class="subheader">Comentarios dejados</div>', unsafe_allow_html=True)
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    st.markdown('</div></div>', unsafe_allow_html=True)
 # gráfico de cantidad de conversaciones por fecha
 # aquí
 
