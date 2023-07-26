@@ -18,7 +18,7 @@ st.set_page_config(
 
 # Obtener contraseña ingresada por el usuario
 businessnumber = st.text_input('Password:')
-
+businessnumber = int(businessnumber)
 # Función principal
 def main():
 
