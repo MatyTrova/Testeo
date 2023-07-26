@@ -166,7 +166,7 @@ with col5:
 df_sql['fecha'] = pd.to_datetime(df_sql['fecha'])
 registros_por_dia = df_sql['fecha'].value_counts().reset_index()
 registros_por_dia.columns = ['fecha', 'cantidad']
-plt.figure(figsize=(6, 4))  
+fig, ax = plt.subplots(figsize=(6, 3)) 
 sns.set(style="whitegrid")
 ax = sns.lineplot(x="fecha", y="cantidad", marker='o', color='b',data=registros_por_dia)
 plt.xlabel('')
