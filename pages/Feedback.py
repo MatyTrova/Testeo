@@ -9,6 +9,14 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import pymysql
 
+st.set_page_config(
+    page_title="Dashboard Experiencias",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="expanded"
+    )
+
+
 db_username = st.secrets["DB_USERNAME"]
 db_password = st.secrets["DB_PASSWORD"]
 db_host = st.secrets["DB_HOST"]
