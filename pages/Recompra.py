@@ -84,9 +84,6 @@ configuracion_cliente = cliente_actual['configuracion']
 st.title(f'Dashboard de {nombre_cliente}')
 
 
-# Importar la biblioteca de Streamlit
-import streamlit as st
-
 # Crear 5 tarjetas en la primera fila
 col1, col2, col3, col4, col5 = st.columns(5)
 
@@ -126,17 +123,17 @@ with col1:
 
 with col2:
     st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
-    st.subheader('Conversaciones terminadas')
     st.markdown('<div class="contenido">', unsafe_allow_html=True)
-    st.write("")
+    st.subheader('Conversaciones terminadas')
+    # Contenido de la tarjeta 2
     st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
 with col3:
     st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
-    st.subheader('Conversaciones pendientes')
     st.markdown('<div class="contenido">', unsafe_allow_html=True)
-    st.write("")
+    st.subheader('Conversaciones pendientes')
+    # Contenido de la tarjeta 3
     st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -150,9 +147,9 @@ with col4:
 
 with col5:
     st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
-    st.subheader('Disposición de recibir ofertas')
     st.markdown('<div class="contenido">', unsafe_allow_html=True)
-    st.write("")
+    st.subheader('Disposición de recibir ofertas')
+    # Contenido de la tarjeta 5
     st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
