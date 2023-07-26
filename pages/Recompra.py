@@ -112,7 +112,7 @@ with col5:
     st.subheader('Disposición de recibir ofertas')
     st.write("")
         # Contenido de la tarjeta 5
-
+df_sql.loc[13] = [13,2,3,4,5,"2023-08-01"]
 # gráfico de cantidad de conversaciones por fecha
 df_sql['fecha'] = pd.to_datetime(df_sql['fecha'])
 registros_por_dia = df_sql['fecha'].value_counts().reset_index()
