@@ -84,8 +84,8 @@ configuracion_cliente = cliente_actual['configuracion']
 st.title(f'Dashboard de {nombre_cliente}')
 
 
+# Importar la biblioteca de Streamlit
 import streamlit as st
-import html
 
 # Crear 5 tarjetas en la primera fila
 col1, col2, col3, col4, col5 = st.columns(5)
@@ -117,45 +117,39 @@ st.markdown(custom_css, unsafe_allow_html=True)
 
 # Contenido de las tarjetas
 with col1:
-    st.write('<div class="tarjeta">', unsafe_allow_html=True)
-    st.write('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
-    st.write('<div class="contenido">', unsafe_allow_html=True)
-    st.markdown(cantidad_clientes)
-    st.write('</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
+    st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    st.write(cantidad_clientes)
+    st.markdown('</div></div>', unsafe_allow_html=True)
 
 with col2:
-    st.markdown("prueba")
-    st.write('<div class="tarjeta">', unsafe_allow_html=True)
-    st.markdown("prueba")    
-    st.write('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)
-    st.markdown("prueba")    
-    st.write('<div class="contenido">', unsafe_allow_html=True)
-    st.markdown("prueba")    
+    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
+    st.markdown('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
     # Contenido de la tarjeta 2
-    st.write('</div></div>', unsafe_allow_html=True)
-    st.markdown("prueba")    
+    st.markdown('</div></div>', unsafe_allow_html=True)
 
 with col3:
-    st.write('<div class="tarjeta">', unsafe_allow_html=True)
-    st.write('<div class="subheader">Conversaciones pendientes</div>', unsafe_allow_html=True)
-    st.write('<div class="contenido">', unsafe_allow_html=True)
+    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
+    st.markdown('<div class="subheader">Conversaciones pendientes</div>', unsafe_allow_html=True)
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
     # Contenido de la tarjeta 3
-    st.write('</div></div>', unsafe_allow_html=True)
+    st.markdown('</div></div>', unsafe_allow_html=True)
 
 with col4:
-    st.write('<div class="tarjeta">', unsafe_allow_html=True)
-    st.write('<div class="subheader">Intención de recompra</div>', unsafe_allow_html=True)
-    st.write('<div class="contenido">', unsafe_allow_html=True)
-    st.markdown(html.escape(intencion_recompra))
-    st.write('</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
+    st.markdown('<div class="subheader">Intención de recompra</div>', unsafe_allow_html=True)
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
+    st.write(intencion_recompra)
+    st.markdown('</div></div>', unsafe_allow_html=True)
 
 with col5:
-    st.write('<div class="tarjeta">', unsafe_allow_html=True)
-    st.write('<div class="subheader">Disposición de recibir ofertas</div>', unsafe_allow_html=True)
-    st.write('<div class="contenido">', unsafe_allow_html=True)
+    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
+    st.markdown('<div class="subheader">Disposición de recibir ofertas</div>', unsafe_allow_html=True)
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
     # Contenido de la tarjeta 5
-    st.write('</div></div>', unsafe_allow_html=True)
-
+    st.markdown('</div></div>', unsafe_allow_html=True)
 
 
 # gráfico de cantidad de conversaciones por fecha
