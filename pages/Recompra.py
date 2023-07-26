@@ -85,34 +85,69 @@ configuracion_cliente = cliente_actual['configuracion']
 st.title(f'Dashboard de {nombre_cliente}')
 
 
+# Importar la biblioteca de Streamlit
+import streamlit as st
+
 # Crear 5 tarjetas en la primera fila
 col1, col2, col3, col4, col5 = st.columns(5)
 
+# Estilos CSS personalizados
+custom_css = """
+<style>
+    .tarjeta {
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
+        text-align: center;
+    }
+    .subheader {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+    }
+    .contenido {
+        font-size: 24px;
+        color: #555;
+    }
+</style>
+"""
+
+# Agregar el estilo CSS personalizado
+st.markdown(custom_css, unsafe_allow_html=True)
+
+# Contenido de las tarjetas
 with col1:
+    st.div_class("tarjeta")
     st.subheader('Cantidad de conversaciones')
+    st.div_class("contenido")
     st.write(cantidad_clientes)
-        # Contenido de la tarjeta 1
 
 with col2:
+    st.div_class("tarjeta")
     st.subheader('Conversaciones terminadas')
+    st.div_class("contenido")
     st.write("")
-        # Contenido de la tarjeta 2
 
 with col3:
+    st.div_class("tarjeta")
     st.subheader('Conversaciones pendientes')
+    st.div_class("contenido")
     st.write("")
-        # Contenido de la tarjeta 3
 
 with col4:
+    st.div_class("tarjeta")
     st.subheader('Intención de recompra')
+    st.div_class("contenido")
     st.write(intencion_recompra)
-        # Contenido de la tarjeta 4
 
 with col5:
+    st.div_class("tarjeta")
     st.subheader('Disposición de recibir ofertas')
+    st.div_class("contenido")
     st.write("")
-        # Contenido de la tarjeta 5
-df_sql.loc[13] = [13,2,3,4,5,"2023-08-01"]
+
+
 # gráfico de cantidad de conversaciones por fecha
 df_sql['fecha'] = pd.to_datetime(df_sql['fecha'])
 registros_por_dia = df_sql['fecha'].value_counts().reset_index()
