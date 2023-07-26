@@ -125,7 +125,7 @@ plt.xlabel('')
 plt.ylabel('')
 date_form = DateFormatter("%d %b")
 ax.xaxis.set_major_formatter(date_form)
-ax.xaxis.set_major_locator(DayLocator(interval=2))
+ax.xaxis.set_major_locator(DayLocator(interval=1))
 # Mostrar el gráfico
 gráfico1 = plt.gcf()
 st.pyplot(gráfico1)
