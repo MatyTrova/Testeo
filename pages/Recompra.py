@@ -116,9 +116,9 @@ custom_css = """
 
 # Agregar el estilo CSS personalizado utilizando st.markdown
 st.markdown(custom_css, unsafe_allow_html=True)
-
+hola = "gatito azul"
 # Variable de ejemplo con estilos en línea
-mi_variable_con_estilos = '<div class="tarjeta" style="font-size: 30px; color: #ff0000;">Hola Mundo</div>'
+mi_variable_con_estilos = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
 
 # Contenido de las tarjetas
 with col1:
