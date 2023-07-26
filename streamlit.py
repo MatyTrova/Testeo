@@ -160,7 +160,7 @@ def main():
         reviews_por_dia1 = reviews_por_dia[reviews_por_dia["msgBody"].str.contains("Positivo")]
         reviews_por_dia2 = reviews_por_dia[reviews_por_dia["msgBody"].str.contains("Negativo")]
         fig, ax = plt.subplots()
-        fig.set_size_inches(6, 4)  
+        fig.set_size_inches(6, 2)  
         sns.set(style="whitegrid")
         ax = sns.lineplot(x="fecha", y="count", marker='o', color='green',data=reviews_por_dia1, label="Positivo",linewidth=4)
         plt.plot(reviews_por_dia2['fecha'], reviews_por_dia2['count'], marker='o', color='blue', label='Negativo',linewidth=4)
@@ -297,7 +297,7 @@ def main():
         registros_por_dia = df_recompra['fecha'].value_counts().reset_index()
         registros_por_dia.columns = ['fecha', 'cantidad']
         fig, ax = plt.subplots()
-        fig.set_size_inches(6, 4) 
+        fig.set_size_inches(6, 2) 
         sns.set(style="whitegrid")
         ax = sns.lineplot(x="fecha", y="cantidad", marker='o', color='b',data=registros_por_dia,linewidth=4)
         plt.xlabel('')
