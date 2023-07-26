@@ -106,7 +106,7 @@ custom_css = """
         color: #333;
     }
     .contenido {
-        font-size: 24px;
+        font-size: 30px; /* Aumentar el tamaño de fuente a 30px */
         color: #555;
     }
 </style>
