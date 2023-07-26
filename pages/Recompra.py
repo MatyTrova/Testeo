@@ -109,9 +109,6 @@ custom_css = """
         font-size: 24px;
         color: #555;
     }
-    .card > .content {
-        margin-top: 10px;
-    }
 </style>
 """
 
@@ -120,40 +117,44 @@ st.markdown(custom_css, unsafe_allow_html=True)
 
 # Contenido de las tarjetas
 with col1:
-    st.markdown('<div class="tarjeta">')
-    st.markdown('<div class="subheader">Cantidad de conversaciones</div>')
-    st.markdown('<div class="contenido">')
-    st.write(cantidad_clientes)
-    st.markdown('</div></div>')
+    st.write('<div class="tarjeta">', unsafe_allow_html=True)
+    st.write('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
+    st.write('<div class="contenido">', unsafe_allow_html=True)
+    st.markdown(cantidad_clientes)
+    st.write('</div></div>', unsafe_allow_html=True)
 
 with col2:
-    st.markdown('<div class="tarjeta">')
-    st.markdown('<div class="subheader">Conversaciones terminadas</div>')
-    st.markdown('<div class="contenido">')
+    st.markdown("prueba")
+    st.write('<div class="tarjeta">', unsafe_allow_html=True)
+    st.markdown("prueba")    
+    st.write('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)
+    st.markdown("prueba")    
+    st.write('<div class="contenido">', unsafe_allow_html=True)
+    st.markdown("prueba")    
     # Contenido de la tarjeta 2
-    st.markdown('</div></div>')
+    st.write('</div></div>', unsafe_allow_html=True)
+    st.markdown("prueba")    
 
 with col3:
-    st.markdown('<div class="tarjeta">')
-    st.markdown('<div class="subheader">Conversaciones pendientes</div>')
-    st.markdown('<div class="contenido">')
+    st.write('<div class="tarjeta">', unsafe_allow_html=True)
+    st.write('<div class="subheader">Conversaciones pendientes</div>', unsafe_allow_html=True)
+    st.write('<div class="contenido">', unsafe_allow_html=True)
     # Contenido de la tarjeta 3
-    st.markdown('</div></div>')
+    st.write('</div></div>', unsafe_allow_html=True)
 
 with col4:
-    st.markdown('<div class="tarjeta">')
-    st.markdown('<div class="subheader">Intención de recompra</div>')
-    st.markdown('<div class="contenido">')
-    intencion_recompra = str(intencion_recompra)
+    st.write('<div class="tarjeta">', unsafe_allow_html=True)
+    st.write('<div class="subheader">Intención de recompra</div>', unsafe_allow_html=True)
+    st.write('<div class="contenido">', unsafe_allow_html=True)
     st.markdown(html.escape(intencion_recompra))
-    st.markdown('</div></div>')
+    st.write('</div></div>', unsafe_allow_html=True)
 
 with col5:
-    st.markdown('<div class="tarjeta">')
-    st.markdown('<div class="subheader">Disposición de recibir ofertas</div>')
-    st.markdown('<div class="contenido">')
+    st.write('<div class="tarjeta">', unsafe_allow_html=True)
+    st.write('<div class="subheader">Disposición de recibir ofertas</div>', unsafe_allow_html=True)
+    st.write('<div class="contenido">', unsafe_allow_html=True)
     # Contenido de la tarjeta 5
-    st.markdown('</div></div>')
+    st.write('</div></div>', unsafe_allow_html=True)
 
 
 
