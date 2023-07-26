@@ -8,7 +8,6 @@ import numpy as np
 from wordcloud import WordCloud
 import pymysql
 from matplotlib.dates import DateFormatter, DayLocator
-import locale
 
 db_username = st.secrets["DB_USERNAME"]
 db_password = st.secrets["DB_PASSWORD"]
@@ -113,39 +112,49 @@ custom_css = """
 </style>
 """
 
-# Agregar el estilo CSS personalizado
+# Agregar el estilo CSS personalizado utilizando st.markdown
 st.markdown(custom_css, unsafe_allow_html=True)
 
 # Contenido de las tarjetas
 with col1:
-    st.div_class("tarjeta")
+    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
     st.subheader('Cantidad de conversaciones')
-    st.div_class("contenido")
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
     st.write(cantidad_clientes)
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 with col2:
-    st.div_class("tarjeta")
+    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
     st.subheader('Conversaciones terminadas')
-    st.div_class("contenido")
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
     st.write("")
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 with col3:
-    st.div_class("tarjeta")
+    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
     st.subheader('Conversaciones pendientes')
-    st.div_class("contenido")
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
     st.write("")
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 with col4:
-    st.div_class("tarjeta")
+    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
     st.subheader('Intención de recompra')
-    st.div_class("contenido")
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
     st.write(intencion_recompra)
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 with col5:
-    st.div_class("tarjeta")
+    st.markdown('<div class="tarjeta">', unsafe_allow_html=True)
     st.subheader('Disposición de recibir ofertas')
-    st.div_class("contenido")
+    st.markdown('<div class="contenido">', unsafe_allow_html=True)
     st.write("")
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 
 # gráfico de cantidad de conversaciones por fecha
