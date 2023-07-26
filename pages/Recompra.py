@@ -157,7 +157,6 @@ with col5:
 
 
 
-
 # gráfico de cantidad de conversaciones por fecha
 df_sql['fecha'] = pd.to_datetime(df_sql['fecha'])
 registros_por_dia = df_sql['fecha'].value_counts().reset_index()
