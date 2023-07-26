@@ -18,6 +18,7 @@ st.set_page_config(
 
 # Obtener contraseña ingresada por el usuario
 businessnumber = st.text_input('Password:')
+businessnumber = int(businessnumber)
 # Función principal
 def main():
 
@@ -38,7 +39,7 @@ def main():
     # Función para verificar la contraseña ingresada
     def verificar_contraseña(businessnumber):
         for elemento in df_password["businessPhoneNumber"]:
-            if (businessnumber == elemento):
+            if (businessnumber == str(elemento)):
                 return True
             else:
                 pass
