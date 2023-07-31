@@ -21,7 +21,6 @@ businessnumber = st.text_input('Password:')
 # Función principal
 def main():
 
-    
     db_username = st.secrets["DB_USERNAME"]
     db_password = st.secrets["DB_PASSWORD"]
     db_host = st.secrets["DB_HOST"]
@@ -43,6 +42,7 @@ def main():
             else:
                 pass
         return False  
+    
     # Página de inicio
     def pagina_inicio():
         st.title("Página de Inicio")
@@ -140,55 +140,54 @@ def main():
 
         # Contenido de las tarjetas
         with col1:
-            st.markdown(tarjeta1, unsafe_allow_html=True)
             st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
+            st.markdown(tarjeta1, unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
         with col2:
+            st.markdown('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)
             st.markdown(tarjeta2, unsafe_allow_html=True)
-            st.markdown('<div class="subheader">Feedbacks positivos</div>', unsafe_allow_html=True)  # Utilizar la clase "mi-variable"
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col3:
+            st.markdown('<div class="subheader">Conversaciones incompletas</div>', unsafe_allow_html=True)
             st.markdown(tarjeta3, unsafe_allow_html=True)
-            st.markdown('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col4:
+            st.markdown('<div class="subheader">Feedbacks positivos</div>', unsafe_allow_html=True)
             st.markdown(tarjeta4, unsafe_allow_html=True)
-            st.markdown('<div class="subheader">Conversaciones pendientes</div>', unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col5:
+            st.markdown('<div class="subheader">Comentarios recibidos</div>', unsafe_allow_html=True)
             st.markdown(tarjeta5, unsafe_allow_html=True)
-            st.markdown('<div class="subheader">Comentarios dejados</div>', unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
-        # gráfico de cantidad de conversaciones por fecha
-        # aquí
-        df_filtered['fecha'] = pd.to_datetime(df_filtered['fecha'])
-        reviews_por_dia = df_filtered[['fecha',"msgBody"]].value_counts().reset_index()
-        reviews_por_dia1 = reviews_por_dia[reviews_por_dia["msgBody"].str.contains("Positivo")]
-        reviews_por_dia2 = reviews_por_dia[reviews_por_dia["msgBody"].str.contains("Negativo")]
-        fig, ax = plt.subplots()
-        fig.set_size_inches(6, 3)  
-        sns.set(style="whitegrid")
-        ax = sns.lineplot(x="fecha", y="count", marker='o', color='green',data=reviews_por_dia1, label="Positivo",linewidth=4)
-        plt.plot(reviews_por_dia2['fecha'], reviews_por_dia2['count'], marker='o', color='blue', label='Negativo',linewidth=4)
-        plt.xlabel('')
-        plt.ylabel('')
-        plt.legend(loc='upper left', bbox_to_anchor=(1.02, 1))
-        date_form = DateFormatter("%d/%m")
-        ax.xaxis.set_major_formatter(date_form)
-        #plt.tight_layout() 
-        gráfico1 = plt.gcf()
-        st.write("# Total de reviews")
-        st.pyplot(gráfico1)
+            ver_comentarios = st.checkbox("Mostrar comentarios")
 
+        col6, col7  = st.columns([2,1])
 
-        col9, col10  = st.columns(2)
+        with col6 :
+            df_filtered['fecha'] = pd.to_datetime(df_filtered['fecha'])
+            reviews_por_dia = df_filtered[['fecha',"msgBody"]].value_counts().reset_index()
+            reviews_por_dia1 = reviews_por_dia[reviews_por_dia["msgBody"].str.contains("Positivo")]
+            reviews_por_dia2 = reviews_por_dia[reviews_por_dia["msgBody"].str.contains("Negativo")]
+            fig, ax = plt.subplots()
+            fig.set_size_inches(6, 3)  
+            sns.set(style="whitegrid")
+            ax = sns.lineplot(x="fecha", y="count", marker='o', color='green',data=reviews_por_dia1, label="Positivo",linewidth=4)
+            plt.plot(reviews_por_dia2['fecha'], reviews_por_dia2['count'], marker='o', color='blue', label='Negativo',linewidth=4)
+            plt.xlabel('')
+            plt.ylabel('')
+            plt.legend(loc='upper left', bbox_to_anchor=(1.02, 1))
+            date_form = DateFormatter("%d/%m")
+            ax.xaxis.set_major_formatter(date_form)
+            #plt.tight_layout() 
+            gráfico1 = plt.gcf()
+            st.write("# Total de reviews")
+            st.pyplot(gráfico1)
 
-        # Nube de palabras
-        with col9:
+        with col7:
             # Extrae las etiquetas y los valores del diccionario
             etiquetas = list(reviews.keys())
             valores = list(reviews.values())
@@ -203,8 +202,11 @@ def main():
             gráfico11 = plt.gcf()
             st.pyplot(gráfico11)
       
-        with col10:
-            st.write("nube de palabras")
+        if ver_comentarios:
+            st.markdown("Comentarios:")
+            st.write("acá los escribimos")
+
+  
 
     # RECOMPRA
     def mostrar_recompra():
