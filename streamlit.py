@@ -83,6 +83,7 @@ def main():
         df_feedback.drop("hora",axis=1,inplace=True)
         st.write("Dataframe")
         st.dataframe(df_feedback)
+        st.write("---")
 
         reviews = {"Positivo":     df_feedback[df_feedback["msgBody"].str.contains("\+")].shape[0] ,
                     "Neutro" :      df_feedback[df_feedback["msgBody"].str.contains("\=")].shape[0] ,
@@ -138,7 +139,6 @@ def main():
         tarjeta4 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
         tarjeta5 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
 
-        st.write("---")
         # Contenido de las tarjetas
         with col1:
             st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
