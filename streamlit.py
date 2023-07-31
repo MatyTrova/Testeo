@@ -138,6 +138,7 @@ def main():
         tarjeta4 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
         tarjeta5 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
 
+        st.write("---")
         # Contenido de las tarjetas
         with col1:
             st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
@@ -165,6 +166,8 @@ def main():
             st.markdown('</div></div>', unsafe_allow_html=True)
             ver_comentarios = st.checkbox("Mostrar comentarios")
 
+        st.write("---")
+
         col6, col7  = st.columns([2,1])
 
         with col6 :
@@ -184,7 +187,7 @@ def main():
             ax.xaxis.set_major_formatter(date_form)
             #plt.tight_layout() 
             gráfico1 = plt.gcf()
-            st.write("# Total de reviews")
+            st.write("### *Total de reviews*")
             st.pyplot(gráfico1)
 
         with col7:
@@ -198,8 +201,8 @@ def main():
             # Crea el gráfico de torta
             plt.pie(valores, labels=etiquetas, colors=colores, autopct='%1.1f%%', startangle=90)
             plt.axis('equal')  # Hace que el gráfico sea circular
-            st.write("Porcentaje de reviews")
             gráfico11 = plt.gcf()
+            st.write("### *Porcentaje de reviews*")
             st.pyplot(gráfico11)
       
         if ver_comentarios:
