@@ -100,8 +100,19 @@ def main():
         ].copy()
 
         # Tarjetas
+        # Cantidad conversaciones
         cantidad_clientes = len(df_feedback["idCliente"].unique())
-
+        # Conversaciones terminadas
+        conteo_terminadas = df_feedback["idCliente"].value_counts().reset_index()
+        conteo_terminadas = len(conteo_terminadas[conteo_terminadas["count"] >= 2])
+        # Conversaciones incompletas
+        conteo_incompletas = df_feedback["idCliente"].value_counts().reset_index()
+        conteo_incompletas = len(conteo_incompletas[conteo_incompletas["count"] == 1])
+        # Feedbacks positivos
+        feedbacks_positivos = reviews["Positivo"]
+        # Comentarios recibidos
+        cantidad_comentarios = df_feedback.loc[(df_feedback["journeyStep"] == "RecepcionMensajeDeMejora") | (df_feedback["journeyStep"] == "EnvioComentarioDeMejora") ,"userPhoneNumber"].reset_index()
+        cantidad_comentarios = len(cantidad_comentarios)
 
         # Crear 5 tarjetas en la primera fila
         col1, col2, col3, col4, col5 = st.columns(5)
@@ -127,13 +138,12 @@ def main():
         # Agregar el estilo CSS personalizado utilizando st.markdown
         st.markdown(custom_css, unsafe_allow_html=True)
 
-        hola = "gatito azul"
         # Variable de ejemplo con estilos en línea
         tarjeta1 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{cantidad_clientes}</div>'
-        tarjeta2 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
-        tarjeta3 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
-        tarjeta4 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
-        tarjeta5 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
+        tarjeta2 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{conteo_terminadas}</div>'
+        tarjeta3 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{conteo_incompletas}</div>'
+        tarjeta4 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{feedbacks_positivos}</div>'
+        tarjeta5 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{cantidad_comentarios}</div>'
 
         # Contenido de las tarjetas
         with col1:
@@ -248,7 +258,15 @@ def main():
         st.write("---")
 
         # Tarjetas
+        # Cantidad de conversaciones
         cantidad_clientes = len(df_recompra["idCliente"].unique())
+        # Conversaciones terminadas
+        conteo_terminadas = df_recompra["idCliente"].value_counts().reset_index()
+        conteo_terminadas = len(conteo_terminadas[conteo_terminadas["count"] >= 2])
+        # Conversaciones incompletas
+        conteo_incompletas = df_recompra["idCliente"].value_counts().reset_index()
+        conteo_incompletas = len(conteo_incompletas[conteo_incompletas["count"] == 1])
+        # Intencion de recompra
         intencion_recompra = len(df_recompra.loc[(df_recompra["journeyClassName"] == "EcommerceRecompraDeProducto") & (df_recompra["journeyStep"] == "RespuestaMensajeInicial") & (df_recompra["msgBody"] == "Sí, necesito comprarlo de nuevo")]) 
 
         # Crear 5 tarjetas en la primera fila
@@ -273,11 +291,11 @@ def main():
         """
         # Agregar el estilo CSS personalizado utilizando st.markdown
         st.markdown(custom_css, unsafe_allow_html=True)
-        hola = "gatito azul"
+    
         # Variable de ejemplo con estilos en línea
         tarjeta1 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{cantidad_clientes}</div>'
-        tarjeta2 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
-        tarjeta3 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
+        tarjeta2 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{conteo_terminadas}</div>'
+        tarjeta3 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{conteo_incompletas}</div>'
         tarjeta4 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{intencion_recompra}</div>'
         #tarjeta5 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
 
@@ -342,13 +360,13 @@ def main():
             seleccion_cliente = st.selectbox("Clientes", clientes_recompra)
             if (seleccion_cliente) == "Todos":
                 msgbody_recompra1 = df_recompra.loc[(df_recompra["journeyStep"] == "RespuestaSiQuiereRecomprar"),["fecha","userPhoneNumber","msgBody"]]
-                msgbody_recompra1['fecha'] = pd.to_datetime(df_recompra['fecha'])
+                msgbody_recompra1['fecha'] = pd.to_datetime(msgbody_recompra1['fecha'])
                 msgbody_recompra1['fecha'] = msgbody_recompra1['fecha'].dt.strftime("%d-%m-%Y")
                 msgbody_recompra1.rename(columns={"userPhoneNumber" : "número","msgBody": "lapso de tiempo" },inplace=True)
                 st.dataframe(msgbody_recompra1,hide_index=True)
             else:
                 msgbody_recompra = df_recompra.loc[(df_recompra["journeyStep"] == "RespuestaSiQuiereRecomprar")&(df_recompra["userPhoneNumber"] == seleccion_cliente),["fecha","msgBody"]]
-                msgbody_recompra['fecha'] = pd.to_datetime(df_recompra['fecha'])
+                msgbody_recompra['fecha'] = pd.to_datetime(msgbody_recompra['fecha'])
                 msgbody_recompra['fecha'] = msgbody_recompra['fecha'].dt.strftime("%d-%m-%Y")
                 msgbody_recompra.rename(columns={"msgBody": "lapso de tiempo" },inplace=True)
                 st.dataframe(msgbody_recompra,hide_index=True)
