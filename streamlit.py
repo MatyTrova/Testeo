@@ -323,12 +323,12 @@ def main():
             ax = sns.lineplot(x="fecha", y="cantidad", marker='o', color='b',data=registros_por_dia,linewidth=4)
             plt.xlabel('')
             plt.ylabel('')
-            date_form = DateFormatter("%d/%m")
-            ax.xaxis.set_major_formatter(date_form)
+            #date_form = DateFormatter("%d/%m")
+            #ax.xaxis.set_major_formatter(date_form)
             #plt.tight_layout() 
             plt.show()
             gráfico2 = plt.gcf()
-            st.write("#### *Total de mensajes*")
+            st.write("#### **Total de mensajes**")
             st.pyplot(gráfico2)
 
         with col6:
