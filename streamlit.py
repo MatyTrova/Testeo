@@ -203,7 +203,7 @@ def main():
                 st.pyplot(gráfico11)
             else:
                 st.write("sin datos")
-                
+
         st.write("---")
 
         if ver_comentarios:
@@ -235,7 +235,7 @@ def main():
         conexion_string = f"mysql+pymysql://{db_username}:{db_password}@{db_host}/{db_token}"
         engine = create_engine(conexion_string,pool_pre_ping=True)
         query = f"""
-                SELECT e.*, c.businessPhoneNumber, c.clientName
+                SELECT e.*, c.businessPhoneNumber, c.clientName, c.userPhoneNumber
                 FROM experiencias e
                 JOIN clientes c ON (e.idCliente = c.idCliente)
                 WHERE e.journeyClassName IN ('EcommerceRecompraDeProducto' ,'EcommerceRecompraParaHoy') AND c.businessPhoneNumber = {businessnumber} ;
@@ -245,14 +245,14 @@ def main():
         st.write("Dataframe")
         st.dataframe(df_recompra)
 
-        
+        st.write("---")
 
         # Tarjetas
         cantidad_clientes = len(df_recompra["idCliente"].unique())
         intencion_recompra = len(df_recompra.loc[(df_recompra["journeyClassName"] == "EcommerceRecompraDeProducto") & (df_recompra["journeyStep"] == "RespuestaMensajeInicial") & (df_recompra["msgBody"] == "Sí, necesito comprarlo de nuevo")]) 
 
         # Crear 5 tarjetas en la primera fila
-        col1, col2, col3, col4, col5 = st.columns(5)
+        col1, col2, col3, col4 = st.columns(4)
 
         # Estilos CSS personalizados
         custom_css = """
@@ -269,10 +269,6 @@ def main():
                 font-weight: bold;
                 color: #333;
             }
-            .contenido {
-                font-size: 24px;
-                color: #555;
-            }
         </style>
         """
         # Agregar el estilo CSS personalizado utilizando st.markdown
@@ -283,60 +279,76 @@ def main():
         tarjeta2 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
         tarjeta3 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
         tarjeta4 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{intencion_recompra}</div>'
-        tarjeta5 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
+        #tarjeta5 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{hola}</div>'
 
         # Contenido de las tarjetas
         with col1:
-            st.markdown(tarjeta1, unsafe_allow_html=True)
             st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
+            st.markdown(tarjeta1, unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
         with col2:
+            st.markdown('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)
             st.markdown(tarjeta2, unsafe_allow_html=True)
-            st.markdown('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)  # Utilizar la clase "mi-variable"
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col3:
+            st.markdown('<div class="subheader">Conversaciones incompletas</div>', unsafe_allow_html=True)
             st.markdown(tarjeta3, unsafe_allow_html=True)
-            st.markdown('<div class="subheader">Conversaciones pendientes</div>', unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col4:
-            st.markdown(tarjeta4, unsafe_allow_html=True)
             st.markdown('<div class="subheader">Intención de recompra</div>', unsafe_allow_html=True)
+            st.markdown(tarjeta4, unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
+            ver_intenciones = st.checkbox("Mostrar clientes")
+        #with col5:
+        #    st.markdown(tarjeta5, unsafe_allow_html=True)
+        #    st.markdown('<div class="subheader">Disposición de recibir ofertas</div>', unsafe_allow_html=True)
+        #    st.markdown('</div></div>', unsafe_allow_html=True)
 
-        with col5:
-            st.markdown(tarjeta5, unsafe_allow_html=True)
-            st.markdown('<div class="subheader">Disposición de recibir ofertas</div>', unsafe_allow_html=True)
-            st.markdown('</div></div>', unsafe_allow_html=True)
-
+        st.write("---")
         # gráfico de cantidad de conversaciones por fecha
-        df_recompra['fecha'] = pd.to_datetime(df_recompra['fecha'])
-        registros_por_dia = df_recompra['fecha'].value_counts().reset_index()
-        registros_por_dia.columns = ['fecha', 'cantidad']
-        fig, ax = plt.subplots()
-        fig.set_size_inches(6, 3) 
-        sns.set(style="whitegrid")
-        ax = sns.lineplot(x="fecha", y="cantidad", marker='o', color='b',data=registros_por_dia,linewidth=4)
-        plt.xlabel('')
-        plt.ylabel('')
-        date_form = DateFormatter("%d/%m")
-        ax.xaxis.set_major_formatter(date_form)
-        #plt.tight_layout() 
-        plt.show()
-        gráfico2 = plt.gcf()
-        st.write("# Total de conversaciones")
-        st.pyplot(gráfico2)
+        col5, col6 = st.columns([2,1])
 
+        with col5 :
+            df_recompra['fecha'] = pd.to_datetime(df_recompra['fecha'])
+            registros_por_dia = df_recompra['fecha'].value_counts().reset_index()
+            registros_por_dia.columns = ['fecha', 'cantidad']
+            fig, ax = plt.subplots()
+            fig.set_size_inches(6, 3) 
+            sns.set(style="whitegrid")
+            ax = sns.lineplot(x="fecha", y="cantidad", marker='o', color='b',data=registros_por_dia,linewidth=4)
+            plt.xlabel('')
+            plt.ylabel('')
+            date_form = DateFormatter("%d/%m")
+            ax.xaxis.set_major_formatter(date_form)
+            #plt.tight_layout() 
+            plt.show()
+            gráfico2 = plt.gcf()
+            st.write("# Total de conversaciones")
+            st.pyplot(gráfico2)
 
-        col9, col10  = st.columns(2)
+        with col6:
+            st.write("gráfico de torta para ver '%' de recompra positiva y negrativa")
+       
+        st.write("---")
 
-        # Nube de palabras
-        #with col9:
+        if ver_intenciones:
+            st.markdown("## **Comentarios**:")
+            clientes_recompra = df_recompra.loc[(df_recompra["journeyStep"] == "RespuestaMensajeInicial") & (df_recompra["msgBody"] == "Sí, necesito comprarlo de nuevo") ,"userPhoneNumber"].reset_index()
+            clientes_recompra = sorted(clientes_recompra["userPhoneNumber"].unique().tolist())
+            clientes_recompra.insert(0, "Todos")
+            seleccion_cliente = st.selectbox("Clientes", clientes_recompra)
+            if (seleccion_cliente) == "Todos":
+                msgbody_recompra1 = df_recompra.loc[(df_recompra["journeyStep"] == "RespuestaSiQuiereRecomprar"),["fecha","userPhoneNumber","msgBody"]]
+                msgbody_recompra1.rename(columns={"userPhoneNumber" : "número","msgBody": "lapso de tiempo" })
+                st.dataframe(msgbody_recompra1,hide_index=True)
+            else:
+                msgbody_recompra = df_recompra.loc[(df_recompra["journeyStep"] == "RespuestaSiQuiereRecomprar")&(df_recompra["userPhoneNumber"] == seleccion_cliente),["fecha","msgBody"]]
+                msgbody_recompra.rename(columns={"msgBody": "lapso de tiempo" })
+                st.dataframe(msgbody_recompra,hide_index=True)
 
-        # Gráfico de torta   
-        #with col10:
 
     # Opciones del sidebar para seleccionar página
     opciones_paginas = ["Inicio", "Feedback", "Recompra"]
