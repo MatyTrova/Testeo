@@ -18,6 +18,7 @@ st.set_page_config(
 
 # Obtener contraseña ingresada por el usuario
 businessnumber = st.text_input('Password:')
+businessnumber = businessnumber.strip()
 # Función principal
 def main():
 
@@ -201,12 +202,13 @@ def main():
                 # Extrae las etiquetas y los valores del diccionario
                 etiquetas = list(reviews.keys())
                 valores = list(reviews.values())
+                total = sum(valores)
                 # Colores para el gráfico
                 colores = ['tab:green', 'tab:grey', 'tab:blue']
                 plt.figure(figsize=(6, 4))  
                 sns.set(style="whitegrid")
                 # Crea el gráfico de torta
-                plt.pie(valores, labels=etiquetas, colors=colores, autopct='%1.1f%%', startangle=90)
+                plt.pie(valores, labels=etiquetas, colors=colores, autopct=lambda p: '{:.0f} ({:.1f}%)'.format(p * total / 100, p), startangle=90)
                 plt.axis('equal')  # Hace que el gráfico sea circular
                 gráfico11 = plt.gcf()
                 st.write("#### **Porcentaje de reviews**")
