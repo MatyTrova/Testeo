@@ -336,17 +336,17 @@ def main():
 
         if ver_intenciones:
             st.markdown("## **Comentarios**:")
-            clientes_recompra = df_recompra.loc[(df_recompra["journeyStep"] == "RespuestaMensajeInicial") & (df_recompra["msgBody"] == "Sí, necesito comprarlo de nuevo") ,"userPhoneNumber"].reset_index()
+            clientes_recompra = df_recompra.loc[(df_recompra["journeyStep"] == "RespuestaSiQuiereRecomprar") ,"userPhoneNumber"].reset_index()
             clientes_recompra = sorted(clientes_recompra["userPhoneNumber"].unique().tolist())
             clientes_recompra.insert(0, "Todos")
             seleccion_cliente = st.selectbox("Clientes", clientes_recompra)
             if (seleccion_cliente) == "Todos":
                 msgbody_recompra1 = df_recompra.loc[(df_recompra["journeyStep"] == "RespuestaSiQuiereRecomprar"),["fecha","userPhoneNumber","msgBody"]]
-                msgbody_recompra1.rename(columns={"userPhoneNumber" : "número","msgBody": "lapso de tiempo" })
+                msgbody_recompra1.rename(columns={"userPhoneNumber" : "número","msgBody": "lapso de tiempo" },inplace=True)
                 st.dataframe(msgbody_recompra1,hide_index=True)
             else:
                 msgbody_recompra = df_recompra.loc[(df_recompra["journeyStep"] == "RespuestaSiQuiereRecomprar")&(df_recompra["userPhoneNumber"] == seleccion_cliente),["fecha","msgBody"]]
-                msgbody_recompra.rename(columns={"msgBody": "lapso de tiempo" })
+                msgbody_recompra.rename(columns={"msgBody": "lapso de tiempo" },inplace=True)
                 st.dataframe(msgbody_recompra,hide_index=True)
 
 
