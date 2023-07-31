@@ -335,7 +335,7 @@ def main():
         st.write("---")
 
         if ver_intenciones:
-            st.markdown("## **Comentarios**:")
+            st.markdown("## **Clientes con intención de recompra**:")
             clientes_recompra = df_recompra.loc[(df_recompra["journeyStep"] == "RespuestaSiQuiereRecomprar") ,"userPhoneNumber"].reset_index()
             clientes_recompra = sorted(clientes_recompra["userPhoneNumber"].unique().tolist())
             clientes_recompra.insert(0, "Todos")
@@ -348,7 +348,8 @@ def main():
                 msgbody_recompra = df_recompra.loc[(df_recompra["journeyStep"] == "RespuestaSiQuiereRecomprar")&(df_recompra["userPhoneNumber"] == seleccion_cliente),["fecha","msgBody"]]
                 msgbody_recompra.rename(columns={"msgBody": "lapso de tiempo" },inplace=True)
                 st.dataframe(msgbody_recompra,hide_index=True)
-
+        
+        st.write("estaría bueno poner que productos quieren recomprar")
 
     # Opciones del sidebar para seleccionar página
     opciones_paginas = ["Inicio", "Feedback", "Recompra"]
