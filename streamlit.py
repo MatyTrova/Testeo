@@ -208,13 +208,14 @@ def main():
             st.write("acá los escribimos")
             clientes1 = sorted(df_feedback["userPhoneNumber"].unique().tolist())
             clientes1.insert(0, "todos")
-            seleccion_cliente = st.selectbox("Seleccione una opción", clientes1)
+            seleccion_cliente = st.selectbox("Clientes", clientes1)
             if (seleccion_cliente) == "todos":
                 todos1 = df_feedback.loc[(df_feedback["journeyStep"] == "RecepcionMensajeDeMejora") | (df_feedback["journeyStep"] == "EnvioComentarioDeMejora") ,"msgBody"]
                 for elemento in todos1 :
                     st.write("elemento")
-            x = df_feedback.loc[(df_feedback["journeyStep"] == "RecepcionMensajeDeMejora") | (df_feedback["journeyStep"] == "EnvioComentarioDeMejora"),(df_feedback["userPhoneNumber"] == seleccion_cliente) ,"msgBody"]
-            st.write(x)
+            else:
+                x = df_feedback.loc[(df_feedback["journeyStep"].isin(["RecepcionMensajeDeMejora", "EnvioComentarioDeMejora"])) & (df_feedback["userPhoneNumber"] == seleccion_cliente), "msgBody"]
+                st.write(x)
 
     # RECOMPRA
     def mostrar_recompra():
