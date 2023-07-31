@@ -84,7 +84,7 @@ def main():
         st.write("Dataframe")
         st.dataframe(df_feedback)
         st.write("---")
-
+        
         reviews = {"Positivo":     df_feedback[df_feedback["msgBody"].str.contains("\+")].shape[0] ,
                     "Neutro" :      df_feedback[df_feedback["msgBody"].str.contains("\=")].shape[0] ,
                     "Negativo":    df_feedback[df_feedback["msgBody"].str.contains("\-")].shape[0]
@@ -187,20 +187,23 @@ def main():
             st.pyplot(gráfico1)
 
         with col7:
-            # Extrae las etiquetas y los valores del diccionario
-            etiquetas = list(reviews.keys())
-            valores = list(reviews.values())
-            # Colores para el gráfico
-            colores = ['tab:green', 'tab:grey', 'tab:blue']
-            plt.figure(figsize=(6, 4))  
-            sns.set(style="whitegrid")
-            # Crea el gráfico de torta
-            plt.pie(valores, labels=etiquetas, colors=colores, autopct='%1.1f%%', startangle=90)
-            plt.axis('equal')  # Hace que el gráfico sea circular
-            gráfico11 = plt.gcf()
-            st.write("#### **Porcentaje de reviews**")
-            st.pyplot(gráfico11)
-      
+            if len(df_feedback) > 0 :
+                # Extrae las etiquetas y los valores del diccionario
+                etiquetas = list(reviews.keys())
+                valores = list(reviews.values())
+                # Colores para el gráfico
+                colores = ['tab:green', 'tab:grey', 'tab:blue']
+                plt.figure(figsize=(6, 4))  
+                sns.set(style="whitegrid")
+                # Crea el gráfico de torta
+                plt.pie(valores, labels=etiquetas, colors=colores, autopct='%1.1f%%', startangle=90)
+                plt.axis('equal')  # Hace que el gráfico sea circular
+                gráfico11 = plt.gcf()
+                st.write("#### **Porcentaje de reviews**")
+                st.pyplot(gráfico11)
+            else:
+                st.write("sin datos")
+                
         st.write("---")
 
         if ver_comentarios:
