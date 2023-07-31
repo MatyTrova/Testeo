@@ -139,25 +139,27 @@ def main():
         with col1:
             st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
             st.markdown(tarjeta1, unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
         with col2:
             st.markdown('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)
             st.markdown(tarjeta2, unsafe_allow_html=True)
-            
+            st.markdown('</div></div>', unsafe_allow_html=True)
+
         with col3:
             st.markdown('<div class="subheader">Conversaciones incompletas</div>', unsafe_allow_html=True)
             st.markdown(tarjeta3, unsafe_allow_html=True)
-            
+            st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col4:
             st.markdown('<div class="subheader">Feedbacks positivos</div>', unsafe_allow_html=True)
             st.markdown(tarjeta4, unsafe_allow_html=True)
-            
+            st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col5:
             st.markdown('<div class="subheader">Comentarios recibidos</div>', unsafe_allow_html=True)
             st.markdown(tarjeta5, unsafe_allow_html=True)
-            
+            st.markdown('</div></div>', unsafe_allow_html=True)
             ver_comentarios = st.checkbox("Mostrar comentarios")
 
         st.write("---")
@@ -176,12 +178,12 @@ def main():
             plt.plot(reviews_por_dia2['fecha'], reviews_por_dia2['count'], marker='o', color='blue', label='Negativo',linewidth=4)
             plt.xlabel('')
             plt.ylabel('')
-            plt.legend(loc='upper right', bbox_to_anchor=(1.02, 1))
+            plt.legend(loc='upper left', bbox_to_anchor=(1.02, 1), borderaxespad=0)
             date_form = DateFormatter("%d/%m")
             ax.xaxis.set_major_formatter(date_form)
             #plt.tight_layout() 
             gráfico1 = plt.gcf()
-            st.write("### *Total de reviews*")
+            st.write("### **Total de reviews**")
             st.pyplot(gráfico1)
 
         with col7:
@@ -196,14 +198,16 @@ def main():
             plt.pie(valores, labels=etiquetas, colors=colores, autopct='%1.1f%%', startangle=90)
             plt.axis('equal')  # Hace que el gráfico sea circular
             gráfico11 = plt.gcf()
-            st.write("### *Porcentaje de reviews*")
+            st.write("### **Porcentaje de reviews**")
             st.pyplot(gráfico11)
       
+        st.write("---")
+        
         if ver_comentarios:
             st.markdown("Comentarios:")
             st.write("acá los escribimos")
 
-  
+    
 
     # RECOMPRA
     def mostrar_recompra():
