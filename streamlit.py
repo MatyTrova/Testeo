@@ -242,8 +242,6 @@ def main():
                 """
         df_recompra = pd.read_sql(query, engine)
         df_recompra.drop("hora",axis=1,inplace=True)
-        df_recompra['fecha'] = pd.to_datetime(df_recompra['fecha'])
-        df_recompra['fecha'] = df_recompra['fecha'].dt.strftime("%d-%m-%Y")
         st.write("Dataframe")
         st.dataframe(df_recompra)
 
@@ -323,8 +321,8 @@ def main():
             ax = sns.lineplot(x="fecha", y="cantidad", marker='o', color='b',data=registros_por_dia,linewidth=4)
             plt.xlabel('')
             plt.ylabel('')
-            #date_form = DateFormatter("%d/%m")
-            #ax.xaxis.set_major_formatter(date_form)
+            date_form = DateFormatter("%d/%m")
+            ax.xaxis.set_major_formatter(date_form)
             #plt.tight_layout() 
             plt.show()
             gráfico2 = plt.gcf()
@@ -344,10 +342,14 @@ def main():
             seleccion_cliente = st.selectbox("Clientes", clientes_recompra)
             if (seleccion_cliente) == "Todos":
                 msgbody_recompra1 = df_recompra.loc[(df_recompra["journeyStep"] == "RespuestaSiQuiereRecomprar"),["fecha","userPhoneNumber","msgBody"]]
+                msgbody_recompra1['fecha'] = pd.to_datetime(df_recompra['fecha'])
+                msgbody_recompra1['fecha'] = msgbody_recompra1['fecha'].dt.strftime("%d-%m-%Y")
                 msgbody_recompra1.rename(columns={"userPhoneNumber" : "número","msgBody": "lapso de tiempo" },inplace=True)
                 st.dataframe(msgbody_recompra1,hide_index=True)
             else:
                 msgbody_recompra = df_recompra.loc[(df_recompra["journeyStep"] == "RespuestaSiQuiereRecomprar")&(df_recompra["userPhoneNumber"] == seleccion_cliente),["fecha","msgBody"]]
+                msgbody_recompra['fecha'] = pd.to_datetime(df_recompra['fecha'])
+                msgbody_recompra['fecha'] = msgbody_recompra['fecha'].dt.strftime("%d-%m-%Y")
                 msgbody_recompra.rename(columns={"msgBody": "lapso de tiempo" },inplace=True)
                 st.dataframe(msgbody_recompra,hide_index=True)
         
