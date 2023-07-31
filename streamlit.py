@@ -111,6 +111,9 @@ def main():
         conteo_incompletas = len(conteo_incompletas[conteo_incompletas["count"] == 1])
         # Feedbacks positivos
         feedbacks_positivos = reviews["Positivo"]
+        valores = list(reviews.values())
+        total = sum(valores)
+        feedbacks_positivos = f"{(feedbacks_positivos / total ) * 100} %"
         # Comentarios recibidos
         cantidad_comentarios = df_feedback.loc[(df_feedback["journeyStep"] == "RecepcionMensajeDeMejora") | (df_feedback["journeyStep"] == "EnvioComentarioDeMejora") ,"userPhoneNumber"].reset_index()
         cantidad_comentarios = len(cantidad_comentarios)
