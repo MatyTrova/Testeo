@@ -139,27 +139,25 @@ def main():
         with col1:
             st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
             st.markdown(tarjeta1, unsafe_allow_html=True)
-            st.markdown('</div>', unsafe_allow_html=True)
 
         with col2:
             st.markdown('<div class="subheader">Conversaciones terminadas</div>', unsafe_allow_html=True)
             st.markdown(tarjeta2, unsafe_allow_html=True)
-            st.markdown('</div></div>', unsafe_allow_html=True)
-
+            
         with col3:
             st.markdown('<div class="subheader">Conversaciones incompletas</div>', unsafe_allow_html=True)
             st.markdown(tarjeta3, unsafe_allow_html=True)
-            st.markdown('</div></div>', unsafe_allow_html=True)
+            
 
         with col4:
             st.markdown('<div class="subheader">Feedbacks positivos</div>', unsafe_allow_html=True)
             st.markdown(tarjeta4, unsafe_allow_html=True)
-            st.markdown('</div></div>', unsafe_allow_html=True)
+            
 
         with col5:
             st.markdown('<div class="subheader">Comentarios recibidos</div>', unsafe_allow_html=True)
             st.markdown(tarjeta5, unsafe_allow_html=True)
-            st.markdown('</div></div>', unsafe_allow_html=True)
+            
             ver_comentarios = st.checkbox("Mostrar comentarios")
 
         st.write("---")
