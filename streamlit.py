@@ -74,7 +74,7 @@ def main():
         engine = create_engine(conexion_string,pool_pre_ping=True)
         # Query de Feedback
         query = f"""
-            SELECT e.* , c.businessPhoneNumber, c.clientName
+            SELECT e.* , c.businessPhoneNumber, c.clientName, c.userPhoneNumber
             FROM experiencias e
             JOIN clientes c ON (e.idCliente = c.idCliente)
             WHERE e.journeyClassName = 'EcommerceFeedbackCompra' AND c.businessPhoneNumber = {businessnumber} ;
@@ -178,12 +178,12 @@ def main():
             plt.plot(reviews_por_dia2['fecha'], reviews_por_dia2['count'], marker='o', color='blue', label='Negativo',linewidth=4)
             plt.xlabel('')
             plt.ylabel('')
-            plt.legend(loc='upper left', bbox_to_anchor=(1.02, 1), borderaxespad=0)
+            plt.legend(loc='upper right', bbox_to_anchor=(1.02, 1), borderaxespad=0)
             date_form = DateFormatter("%d/%m")
             ax.xaxis.set_major_formatter(date_form)
             #plt.tight_layout() 
             gráfico1 = plt.gcf()
-            st.write("### **Total de reviews**")
+            st.write("**Total de reviews**")
             st.pyplot(gráfico1)
 
         with col7:
@@ -198,11 +198,11 @@ def main():
             plt.pie(valores, labels=etiquetas, colors=colores, autopct='%1.1f%%', startangle=90)
             plt.axis('equal')  # Hace que el gráfico sea circular
             gráfico11 = plt.gcf()
-            st.write("### **Porcentaje de reviews**")
+            st.write("**Porcentaje de reviews**")
             st.pyplot(gráfico11)
       
         st.write("---")
-        
+
         if ver_comentarios:
             st.markdown("Comentarios:")
             st.write("acá los escribimos")
