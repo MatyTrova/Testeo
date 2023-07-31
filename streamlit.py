@@ -205,18 +205,18 @@ def main():
 
         if ver_comentarios:
             st.markdown("## **Comentarios**:")
-            st.write("acá los escribimos")
             clientes_feedback = df_feedback.loc[(df_feedback["journeyStep"] == "RecepcionMensajeDeMejora") | (df_feedback["journeyStep"] == "EnvioComentarioDeMejora") ,"userPhoneNumber"].reset_index()
             clientes_feedback = sorted(clientes_feedback["userPhoneNumber"].unique().tolist())
-            clientes_feedback.insert(0, "todos")
+            clientes_feedback.insert(0, "Todos")
             seleccion_cliente = st.selectbox("Clientes", clientes_feedback)
             if (seleccion_cliente) == "todos":
                 msgbody_feedback1 = df_feedback.loc[(df_feedback["journeyStep"] == "RecepcionMensajeDeMejora") | (df_feedback["journeyStep"] == "EnvioComentarioDeMejora") ,"msgBody"]
-                for elemento in msgbody_feedback1 :
-                    st.write(f"+ {elemento}")
+                for elemento1 in msgbody_feedback1 :
+                    st.write(f"+ {elemento1}")
             else:
-                msgbody_feedback = df_feedback.loc[(df_feedback["journeyStep"].isin(["RecepcionMensajeDeMejora", "EnvioComentarioDeMejora"])) & (df_feedback["userPhoneNumber"] == seleccion_cliente), "msgBody"].reset_index()
-                st.write(msgbody_feedback["msgBody"])
+                msgbody_feedback = df_feedback.loc[(df_feedback["journeyStep"].isin(["RecepcionMensajeDeMejora", "EnvioComentarioDeMejora"])) & (df_feedback["userPhoneNumber"] == seleccion_cliente), "msgBody"]
+                for elemento in msgbody_feedback :
+                    st.write(f"+ {elemento}")
 
     # RECOMPRA
     def mostrar_recompra():
