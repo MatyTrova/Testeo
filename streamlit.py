@@ -121,10 +121,6 @@ def main():
                 font-weight: bold;
                 color: #333;
             }
-            .contenido {
-                font-size: 24px;
-                color: #555;
-            }
         </style>
         """
 
@@ -182,7 +178,7 @@ def main():
             plt.plot(reviews_por_dia2['fecha'], reviews_por_dia2['count'], marker='o', color='blue', label='Negativo',linewidth=4)
             plt.xlabel('')
             plt.ylabel('')
-            plt.legend(loc='upper left', bbox_to_anchor=(1.02, 1))
+            plt.legend(loc='upper right', bbox_to_anchor=(1.02, 1))
             date_form = DateFormatter("%d/%m")
             ax.xaxis.set_major_formatter(date_form)
             #plt.tight_layout() 
