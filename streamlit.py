@@ -242,6 +242,8 @@ def main():
                 """
         df_recompra = pd.read_sql(query, engine)
         df_recompra.drop("hora",axis=1,inplace=True)
+        df_recompra['fecha'] = pd.to_datetime(df_recompra['fecha'])
+        df_recompra['fecha'] = df_recompra['fecha'].dt.strftime("%d-%m-%Y")
         st.write("Dataframe")
         st.dataframe(df_recompra)
 
@@ -326,7 +328,7 @@ def main():
             #plt.tight_layout() 
             plt.show()
             gráfico2 = plt.gcf()
-            st.write("# Total de conversaciones")
+            st.write("#### *Total de mensajes*")
             st.pyplot(gráfico2)
 
         with col6:
