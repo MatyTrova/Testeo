@@ -31,7 +31,6 @@ with colA :
 with colB : 
     businessnumber = hide_password_input("Password:")
     
-
 with colC :
     st.write("")    
 
@@ -91,7 +90,6 @@ def main():
         if not st.session_state.get('autenticado'):
             st.error("Debe ingresar una contraseña válida en la página de inicio para acceder a esta página.")
             st.stop()
-        st.title("Dashboard Feedback")
         # Conexión a la base de datos
         db_username = st.secrets["DB_USERNAME"]
         db_password = st.secrets["DB_PASSWORD"]
@@ -112,6 +110,8 @@ def main():
         # Ocultamos el DF ya que lo utilizamos para ver si todo esta correcto
         #st.write("Dataframe")
         #st.dataframe(df_feedback)
+        st.title("Dashboard Feedback")
+        st.subheader(f"Bienvenido {df_feedback['clientName'].unique()[0]}")
         st.write("---")
 
         # Contamos la cantidad de reviews
