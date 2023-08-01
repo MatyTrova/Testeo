@@ -102,8 +102,9 @@ def main():
         """
         df_feedback = pd.read_sql(query, engine)
         df_feedback.drop("hora",axis=1,inplace=True)
-        st.write("Dataframe")
-        st.dataframe(df_feedback)
+        # Ocultamos el DF ya que lo utilizamos para ver si todo esta correcto
+        #st.write("Dataframe")
+        #st.dataframe(df_feedback)
         st.write("---")
 
         # Contamos la cantidad de reviews
@@ -282,8 +283,9 @@ def main():
                 """
         df_recompra = pd.read_sql(query, engine)
         df_recompra.drop("hora",axis=1,inplace=True)
-        st.write("Dataframe")
-        st.dataframe(df_recompra)
+        # Aquí también ocultamos el DF
+        #st.write("Dataframe")
+        #st.dataframe(df_recompra)
 
         st.write("---")
 
