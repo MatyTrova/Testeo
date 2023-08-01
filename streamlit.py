@@ -1,3 +1,4 @@
+# Importamos las librerias a utilizar
 import streamlit as st
 import pandas as pd
 import sqlalchemy
@@ -9,8 +10,9 @@ from wordcloud import WordCloud
 import pymysql
 from matplotlib.dates import DateFormatter, DayLocator
 
+# Configuramos la página
 st.set_page_config(
-    page_title="Dashboard Experiencias",
+    page_title="Dashboard Desarrollos PEC",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -19,16 +21,19 @@ st.set_page_config(
 # Obtener contraseña ingresada por el usuario
 businessnumber = st.text_input('Password:')
 businessnumber = businessnumber.strip()
+
 # Función principal
 def main():
 
+    # Conexión a la base de datos
     db_username = st.secrets["DB_USERNAME"]
     db_password = st.secrets["DB_PASSWORD"]
     db_host = st.secrets["DB_HOST"]
     db_token = st.secrets["DB_TOKEN"]
-        # Creamos la conexión
+    # Creamos la conexión
     conexion_string = f"mysql+pymysql://{db_username}:{db_password}@{db_host}/{db_token}"
     engine = create_engine(conexion_string,pool_pre_ping=True)
+    # Query de consulta para la contraseña
     query = """
             SELECT DISTINCT businessPhoneNumber
             FROM clientes ;
@@ -46,6 +51,10 @@ def main():
     
     # Página de inicio
     def pagina_inicio():
+        # Imagen
+        st.write("---")
+        st.image("imgs_exp/desarrollospec2.png", use_column_width=True)
+        st.write("---")
         st.title("Página de Inicio")
         st.write("Bienvenido a la página de inicio. Por favor, ingrese su business number.")
         st.write("passwords = 15550199539 , 56992717910 , 56945904447 ")
@@ -66,6 +75,7 @@ def main():
             st.error("Debe ingresar una contraseña válida en la página de inicio para acceder a esta página.")
             st.stop()
         st.title("Dashboard Feedback")
+        # Conexión a la base de datos
         db_username = st.secrets["DB_USERNAME"]
         db_password = st.secrets["DB_PASSWORD"]
         db_host = st.secrets["DB_HOST"]
@@ -85,7 +95,8 @@ def main():
         st.write("Dataframe")
         st.dataframe(df_feedback)
         st.write("---")
-        
+
+        # Contamos la cantidad de reviews
         reviews = {"Positivo":     df_feedback[df_feedback["msgBody"].str.contains("\+")].shape[0] ,
                     "Neutro" :      df_feedback[df_feedback["msgBody"].str.contains("\=")].shape[0] ,
                     "Negativo":    df_feedback[df_feedback["msgBody"].str.contains("\-")].shape[0]
@@ -179,7 +190,7 @@ def main():
         st.write("---")
 
         col6, col7  = st.columns([2,1])
-
+        # Gráfico de líneas
         with col6 :
             df_filtered['fecha'] = pd.to_datetime(df_filtered['fecha'])
             reviews_por_dia = df_filtered[['fecha',"msgBody"]].value_counts().reset_index()
@@ -200,6 +211,7 @@ def main():
             st.write("#### **Total de reviews**")
             st.pyplot(gráfico1)
 
+        # Gráfico de torta
         with col7:
             if len(df_feedback) > 0 :
                 # Extrae las etiquetas y los valores del diccionario
@@ -221,6 +233,7 @@ def main():
 
         st.write("---")
 
+        # Para ver los comentarios
         if ver_comentarios:
             st.markdown("## **Comentarios**:")
             clientes_feedback = df_feedback.loc[(df_feedback["journeyStep"] == "RecepcionMensajeDeMejora") | (df_feedback["journeyStep"] == "EnvioComentarioDeMejora") ,"userPhoneNumber"].reset_index()
@@ -243,12 +256,14 @@ def main():
             st.error("Debe ingresar una contraseña válida en la página de inicio para acceder a esta página.")
             st.stop()
         st.title("Dashboard Recompra")    
+        # Conexión a la base de datos
         db_username = st.secrets["DB_USERNAME"]
         db_password = st.secrets["DB_PASSWORD"]
         db_host = st.secrets["DB_HOST"]
         db_token = st.secrets["DB_TOKEN"]
         conexion_string = f"mysql+pymysql://{db_username}:{db_password}@{db_host}/{db_token}"
         engine = create_engine(conexion_string,pool_pre_ping=True)
+        # Query de recompra
         query = f"""
                 SELECT e.*, c.businessPhoneNumber, c.clientName, c.userPhoneNumber
                 FROM experiencias e
@@ -334,6 +349,7 @@ def main():
         # gráfico de cantidad de conversaciones por fecha
         col5, col6 = st.columns([2,1])
 
+        # Gráfico de líneas
         with col5 :
             df_recompra['fecha'] = pd.to_datetime(df_recompra['fecha'])
             registros_por_dia = df_recompra['fecha'].value_counts().reset_index()
@@ -357,6 +373,7 @@ def main():
        
         st.write("---")
 
+        # Ver clientes que tienen intención de compra
         if ver_intenciones:
             st.markdown("## **Clientes con intención de recompra**:")
             clientes_recompra = df_recompra.loc[(df_recompra["journeyStep"] == "RespuestaSiQuiereRecomprar") ,"userPhoneNumber"].reset_index()
