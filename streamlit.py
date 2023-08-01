@@ -10,6 +10,11 @@ from wordcloud import WordCloud
 import pymysql
 from matplotlib.dates import DateFormatter, DayLocator
 
+# Imagen común a todas las páginas ya que esta por fuera de las funciones
+st.write("---")
+st.image("imgs_exp/desarrollospec2.png", use_column_width=True, width=300)
+st.write("---")
+
 # Configuramos la página
 st.set_page_config(
     page_title="Dashboard Desarrollos PEC",
@@ -51,10 +56,6 @@ def main():
     
     # Página de inicio
     def pagina_inicio():
-        # Imagen
-        st.write("---")
-        st.image("imgs_exp/desarrollospec2.png", use_column_width=True)
-        st.write("---")
         st.title("Página de Inicio")
         st.write("Bienvenido a la página de inicio. Por favor, ingrese su business number.")
         st.write("passwords = 15550199539 , 56992717910 , 56945904447 ")
