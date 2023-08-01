@@ -20,7 +20,7 @@ st.set_page_config(
 
 # Imagen común a todas las páginas ya que esta por fuera de las funciones
 st.write("---")
-st.image("imgs_exp/desarrollospec2.png", use_column_width=True, width=300)
+st.image("imgs_exp/desarrollospec2.png", width=300)
 st.write("---")
 
 
