@@ -17,11 +17,16 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
     )
+
+def hide_password_input(input_label):
+    password = st.text_input(input_label, type="password", key=input_label)
+    return password
+
 st.write("---")
 
 colA, colB, colC = st.columns(3)
 with colA :
-    st.write("")
+    businessnumber = hide_password_input("Password:")
 # Imagen común a todas las páginas ya que esta por fuera de las funciones
 with colB : 
     st.image("imgs_exp/desarrollospec2.png", use_column_width=True, width=600)
@@ -30,14 +35,6 @@ with colC :
     st.write("")    
 
 st.write("---")
-
-def hide_password_input(input_label):
-    password = st.text_input(input_label, type="password", key=input_label)
-    return password
-
-businessnumber = hide_password_input("Password:")
-
-    # Verificar si se ha ingresado una contraseña y mostrar un espacio en blanco
 if businessnumber:
     st.empty()
 
