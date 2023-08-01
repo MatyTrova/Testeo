@@ -31,9 +31,18 @@ with colC :
 
 st.write("---")
 
+def hide_password_input(input_label):
+    password = st.text_input(input_label, type="password", key=input_label)
+    return password
+
+businessnumber = hide_password_input("Password:")
+
+    # Verificar si se ha ingresado una contraseña y mostrar un espacio en blanco
+if businessnumber:
+    st.empty()
 
 # Obtener contraseña ingresada por el usuario
-businessnumber = st.text_input('Password:')
+#businessnumber = st.text_input('Password:')
 businessnumber = businessnumber.strip()
 
 # Función principal
