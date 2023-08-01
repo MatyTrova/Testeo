@@ -111,7 +111,7 @@ def main():
         #st.write("Dataframe")
         #st.dataframe(df_feedback)
         st.title("Dashboard Feedback")
-        st.subheader(f"Bienvenido {df_feedback['clientName'].unique()[0]}")
+        st.subheader(f"Bienvenido {df_feedback['clientName'].unique()}")
         st.write("---")
 
         # Contamos la cantidad de reviews
