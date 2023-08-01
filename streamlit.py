@@ -21,13 +21,13 @@ st.write("---")
 
 colA, colB, colC = st.columns(3)
 with colA :
-    st.write("ss")
+    st.write("")
 # Imagen común a todas las páginas ya que esta por fuera de las funciones
 with colB : 
     st.image("imgs_exp/desarrollospec2.png", use_column_width=True, width=600)
 
 with colC :
-    st.write("ss")    
+    st.write("")    
 
 st.write("---")
 
