@@ -26,10 +26,11 @@ st.write("---")
 
 colA, colB, colC = st.columns(3)
 with colA :
-    businessnumber = hide_password_input("Password:")
+    st.image("imgs_exp/desarrollospec2.png", use_column_width=True, width=600)
 # Imagen común a todas las páginas ya que esta por fuera de las funciones
 with colB : 
-    st.image("imgs_exp/desarrollospec2.png", use_column_width=True, width=600)
+    businessnumber = hide_password_input("Password:")
+    
 
 with colC :
     st.write("")    
