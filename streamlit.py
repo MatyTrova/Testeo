@@ -17,10 +17,11 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
     )
-
-# Imagen común a todas las páginas ya que esta por fuera de las funciones
 st.write("---")
-st.image("imgs_exp/desarrollospec2.png", width=300)
+colA, colB, colC = st.columns([1,2,1])
+# Imagen común a todas las páginas ya que esta por fuera de las funciones
+with colB : 
+    st.image("imgs_exp/desarrollospec2.png", use_column_width=True, width=600)
 st.write("---")
 
 
