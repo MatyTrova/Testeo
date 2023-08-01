@@ -111,7 +111,8 @@ def main():
         #st.write("Dataframe")
         #st.dataframe(df_feedback)
         st.title("Dashboard Feedback")
-        st.subheader(f"Bienvenido {df_feedback['clientName'].unique()}")
+        cliente_pec = df_feedback['clientName'].unique().tolist()
+        st.subheader(f"Bienvenido {cliente_pec[0]}")
         st.write("---")
 
         # Contamos la cantidad de reviews
@@ -296,7 +297,9 @@ def main():
         # Aquí también ocultamos el DF
         #st.write("Dataframe")
         #st.dataframe(df_recompra)
-
+        st.title("Dashboard Recompra")
+        cliente_pec = df_recompra['clientName'].unique().tolist()
+        st.subheader(f"Bienvenido {cliente_pec[0]}")
         st.write("---")
 
         # Tarjetas
