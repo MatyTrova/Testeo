@@ -29,7 +29,7 @@ with colA :
     st.image("imgs_exp/desarrollospec2.png", use_column_width=True, width=600)
 # Imagen común a todas las páginas ya que esta por fuera de las funciones
 with colB : 
-    businessnumber = hide_password_input("Password:")
+    businessnumber = hide_password_input("Coloque su número de negocio:")
     
 with colC :
     st.write("")    
@@ -111,8 +111,9 @@ def main():
         #st.write("Dataframe")
         #st.dataframe(df_feedback)
         st.title("Dashboard Feedback")
-        cliente_pec = df_feedback['clientName'].unique().tolist()
-        st.subheader(f"Bienvenido {cliente_pec[0]}")
+        if (len(df_feedback) > 0) :
+            cliente_pec = df_feedback['clientName'].unique().tolist()
+            st.subheader(f"Bienvenido {cliente_pec[0]}")
         st.write("---")
 
         # Contamos la cantidad de reviews
@@ -276,8 +277,7 @@ def main():
         # Verificar si el usuario está autenticado
         if not st.session_state.get('autenticado'):
             st.error("Debe ingresar una contraseña válida en la página de inicio para acceder a esta página.")
-            st.stop()
-        st.title("Dashboard Recompra")    
+            st.stop() 
         # Conexión a la base de datos
         db_username = st.secrets["DB_USERNAME"]
         db_password = st.secrets["DB_PASSWORD"]
@@ -298,8 +298,9 @@ def main():
         #st.write("Dataframe")
         #st.dataframe(df_recompra)
         st.title("Dashboard Recompra")
-        cliente_pec = df_recompra['clientName'].unique().tolist()
-        st.subheader(f"Bienvenido {cliente_pec[0]}")
+        if (len(df_recompra) > 0 ):
+            cliente_pec = df_recompra['clientName'].unique().tolist()
+            st.subheader(f"Bienvenido {cliente_pec[0]}")
         st.write("---")
 
         # Tarjetas
