@@ -439,13 +439,13 @@ def main():
                 SELECT e.*, c.businessPhoneNumber, c.clientName, c.userPhoneNumber
                 FROM experiencias e
                 JOIN clientes c ON (e.idCliente = c.idCliente)
-                WHERE e.journeyClassName IN ('EcommerceRecompraDeProducto' ,'EcommerceRecompraParaHoy') AND c.businessPhoneNumber = {businessnumber} ;
+                WHERE e.journeyClassName IN ('GenerarRecompraGenteInactiva' ,'PreguntaSiClientePudoComprar') AND c.businessPhoneNumber = {businessnumber} ;
                 """
         df_recompra = pd.read_sql(query, engine)
         df_recompra.drop("hora",axis=1,inplace=True)
         # Aquí también ocultamos el DF
-        #st.write("Dataframe")
-        #st.dataframe(df_recompra)
+        st.write("Dataframe")
+        st.dataframe(df_recompra)
         st.title("Dashboard Recompra")
         if (len(df_recompra) > 0 ):
             cliente_pec = df_recompra['clientName'].unique().tolist()
@@ -454,7 +454,7 @@ def main():
 
         # Tarjetas
         # Cantidad de conversaciones
-        cantidad_clientes = len(df_recompra["idCliente"].unique())
+        cantidad_conversaciones = len(df_recompra["idCliente"].unique())
         # Conversaciones terminadas
         conteo_terminadas = df_recompra["idCliente"].value_counts().reset_index()
         conteo_terminadas = len(conteo_terminadas[conteo_terminadas["count"] >= 2])
@@ -558,35 +558,34 @@ def main():
         engine = create_engine(conexion_string,pool_pre_ping=True)
         # Query de recompra
         query = f"""
-                SELECT e.*, c.businessPhoneNumber, c.clientName, c.userPhoneNumber
+                SELECT e.* , c.businessPhoneNumber, c.clientName, c.userPhoneNumber
                 FROM experiencias e
                 JOIN clientes c ON (e.idCliente = c.idCliente)
-                WHERE e.journeyClassName IN ('EcommerceRecompraDeProducto' ,'EcommerceRecompraParaHoy') AND c.businessPhoneNumber = {businessnumber} ;
+                WHERE e.journeyClassName = 'SnackyOfertas' AND c.businessPhoneNumber = {businessnumber} ;
                 """
-        df_recompra = pd.read_sql(query, engine)
-        df_recompra.drop("hora",axis=1,inplace=True)
+        df_oferta_snackys = pd.read_sql(query, engine)
+        df_oferta_snackys.drop("hora",axis=1,inplace=True)
         # Aquí también ocultamos el DF
-        #st.write("Dataframe")
-        #st.dataframe(df_recompra)
+        st.write("Dataframe")
+        st.dataframe(df_oferta_snackys)
         st.title("Dashboard ofertas")
-        if (len(df_recompra) > 0 ):
-            cliente_pec = df_recompra['clientName'].unique().tolist()
+        if (len(df_oferta_snackys) > 0 ):
+            cliente_pec = df_oferta_snackys['clientName'].unique().tolist()
             st.subheader(f"Bienvenido {cliente_pec[0]}")
         st.write("---")
 
         # Tarjetas
         # Cantidad de conversaciones
-        cantidad_clientes = len(df_recompra["idCliente"].unique())
+        cantidad_conversaciones = len(df_oferta_snackys["idCliente"].unique())
         # Conversaciones terminadas
-        conteo_terminadas = df_recompra["idCliente"].value_counts().reset_index()
+        conteo_terminadas = df_oferta_snackys["idCliente"].value_counts().reset_index()
         conteo_terminadas = len(conteo_terminadas[conteo_terminadas["count"] >= 2])
         # Conversaciones incompletas
-        conteo_incompletas = df_recompra["idCliente"].value_counts().reset_index()
+        conteo_incompletas = df_oferta_snackys["idCliente"].value_counts().reset_index()
         conteo_incompletas = len(conteo_incompletas[conteo_incompletas["count"] == 1])
-        # Intencion de recompra
-        intencion_recompra = len(df_recompra.loc[(df_recompra["journeyClassName"] == "EcommerceRecompraDeProducto") & (df_recompra["journeyStep"] == "RespuestaMensajeInicial") & (df_recompra["msgBody"] == "Sí, necesito comprarlo de nuevo")]) 
-        # Recompra exitosa
-        recompra_exitosa = 0
+        # motivos_clientes_no_interesados
+        motivos_clientes_no_interesados = len( df_oferta_snackys.loc[(df_oferta_snackys["journeyStep"] == "RespuestaMotivoClienteParaNoSuscripcion") ,"userPhoneNumber"].reset_index()) 
+
 
         # Crear 5 tarjetas en la primera fila
         col1, col2, col3= st.columns(3)
@@ -612,11 +611,9 @@ def main():
         st.markdown(custom_css, unsafe_allow_html=True)
     
         # Variable de ejemplo con estilos en línea
-        tarjeta1 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
+        tarjeta1 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{cantidad_conversaciones}</div>'
         tarjeta2 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
-        tarjeta3 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
-        tarjeta4 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
-        tarjeta5 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
+        tarjeta3 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{motivos_clientes_no_interesados}</div>'
 
         # Contenido de las tarjetas
         with col1:
@@ -648,15 +645,67 @@ def main():
         with col4 :
             # gráfico de cantidad de mensajes por fecha
             st.write("gráfico de líneas")
+            df_oferta_snackys['fecha'] = pd.to_datetime(df_oferta_snackys['fecha'])
+            registros_por_dia = df_oferta_snackys['fecha'].value_counts().reset_index()
+            registros_por_dia.columns = ['fecha', 'cantidad']
+            fig, ax = plt.subplots()
+            fig.set_size_inches(6, 3) 
+            sns.set(style="whitegrid")
+            ax = sns.lineplot(x="fecha", y="cantidad", marker='o', color='b',data=registros_por_dia,linewidth=4)
+            plt.xlabel('')
+            plt.ylabel('')
+            date_form = DateFormatter("%d/%m")
+            ax.xaxis.set_major_formatter(date_form)
+            #plt.tight_layout() 
+            plt.show()
+            gráfico2 = plt.gcf()
+            st.write("#### **Total de mensajes**")
+            st.pyplot(gráfico2)
 
         with col5:
             # gráfico de torta
             st.write("gráfico de torta con '%' negativo y positivo")
+            torta = df_oferta_snackys[(df_oferta_snackys["journeyStep"] == "RespuestaMensajeInicial")]
+            # Contamos la cantidad de suscriptos
+            subs = {"Suscriptos":     torta[torta["msgBody"].str.contains("\+")].shape[0] ,
+                    "No suscriptos":    torta[torta["msgBody"].str.contains("\-")].shape[0]
+                    }
+            if len(df_oferta_snackys) > 0 :
+                # Extrae las etiquetas y los valores del diccionario
+                etiquetas = list(subs.keys())
+                valores = list(subs.values())
+                total = sum(valores)
+                # Colores para el gráfico
+                colores = ['tab:green', 'tab:blue']
+                plt.figure(figsize=(6, 4))  
+                sns.set(style="whitegrid")
+                # Crea el gráfico de torta
+                plt.pie(valores, labels=etiquetas, colors=colores, autopct=lambda p: '{:.0f} ({:.1f}%)'.format(p * total / 100, p), startangle=90)
+                plt.axis('equal')  # Hace que el gráfico sea circular
+                gráfico11 = plt.gcf()
+                st.write("#### **Porcentaje de reviews**")
+                st.pyplot(gráfico11)
+            else:
+                st.write("sin datos")
+
 
         st.write("---")
 
         st.write("acá mnostrar los motivos de los clientes")   
-       
+        if ver_motivos:
+            st.markdown("## **Comentarios**:")
+            motivos_clientes = df_oferta_snackys.loc[(df_oferta_snackys["journeyStep"] == "RespuestaMotivoClienteParaNoSuscripcion") ,"userPhoneNumber"].reset_index()
+            motivos_clientes = sorted(motivos_clientes["userPhoneNumber"].unique().tolist())
+            motivos_clientes.insert(0, "Todos")
+            seleccion_cliente = st.selectbox("Clientes", motivos_clientes)
+            if (seleccion_cliente == "Todos"):
+                msgbody_feedback1 = df_oferta_snackys.loc[(df_oferta_snackys["journeyStep"] == "RespuestaMotivoClienteParaNoSuscripcion") ,"msgBody"].str.capitalize()
+                for elemento1 in msgbody_feedback1 :
+                    st.write(f"+ {elemento1}")
+            else:
+                msgbody_feedback = df_oferta_snackys.loc[(df_oferta_snackys["journeyStep"] == "RespuestaMotivoClienteParaNoSuscripcion") & (df_oferta_snackys["userPhoneNumber"] == seleccion_cliente), "msgBody"].str.capitalize()
+                for elemento in msgbody_feedback :
+                    st.write(f"+ {elemento}")
         st.write("---")
 
 
