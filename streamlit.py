@@ -639,7 +639,7 @@ def main():
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col3:
-            st.markdown('<div class="subheader">Cantidad de clientes que dejaron motivos para la no suscripción</div>', unsafe_allow_html=True)
+            st.markdown('<div class="subheader">Cantidad de clientes que dejaron motivos</div>', unsafe_allow_html=True)
             st.markdown(tarjeta3, unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
             ver_motivos = st.checkbox("Mostrar motivos")
@@ -677,7 +677,7 @@ def main():
                 total = sum(valores)
                 # Colores para el gráfico
                 colores = ['tab:green', 'tab:red']
-                plt.figure(figsize=(6, 4))  
+                plt.figure(figsize=(8, 6))  
                 sns.set(style="whitegrid")
                 # Crea el gráfico de torta
                 plt.pie(valores, labels=etiquetas, colors=colores, autopct=lambda p: '{:.0f} ({:.1f}%)'.format(p * total / 100, p), startangle=90)
