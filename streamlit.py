@@ -501,11 +501,8 @@ def main():
             st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
             st.markdown(tarjeta1, unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
-            col11, col22 = st.columns(2)
-            with col11 :
-                st.write(f"Conversaciones terminadas:{00}")
-            with col22 :
-                st.write(f"Conversaciones incompletas:{00}")
+            st.write(f"Conversaciones terminadas:{00}")
+            st.write(f"Conversaciones incompletas:{00}")
 
         with col2:
             st.markdown('<div class="subheader">Recompra exitosa</div>', unsafe_allow_html=True)
