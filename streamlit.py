@@ -516,9 +516,9 @@ def main():
             st.markdown('<div class="subheader">Intención de recompra</div>', unsafe_allow_html=True)
             st.markdown(tarjeta3, unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
-            ver_intenciones = st.checkbox("Mostrar clientes")
+            ver_intenciones = st.checkbox("Ver clientes")
         with col4:
-            st.markdown('<div class="subheader">Tia Sanackys</div>', unsafe_allow_html=True)
+            st.markdown('<div class="subheader">Tia Snackys</div>', unsafe_allow_html=True)
             st.markdown(tarjeta4, unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
             ver_clientes = st.checkbox("Mostrar clientes")
