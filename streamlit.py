@@ -637,12 +637,12 @@ def main():
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col3:
-            st.markdown('<div class="subheader">Clientes que se dieron de baja (Dejar de recibir)</div>', unsafe_allow_html=True)
+            st.markdown('<div class="subheader">Clientes que se dieron de baja</div>', unsafe_allow_html=True)
             st.markdown(tarjeta3, unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col4:
-            st.markdown('<div class="subheader">Cantidad de clientes que dejaron motivos</div>', unsafe_allow_html=True)
+            st.markdown('<div class="subheader">Clientes que dejaron motivos</div>', unsafe_allow_html=True)
             st.markdown(tarjeta4, unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
             ver_motivos = st.checkbox("Mostrar motivos")
