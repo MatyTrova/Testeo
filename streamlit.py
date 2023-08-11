@@ -676,10 +676,12 @@ def main():
     #    mostrar_recompra()
   
     # Snackys
-    opciones_paginas_snackys = ["Ofertas", "Recompra"]
+    opciones_paginas_snackys = ["Inicio","Ofertas", "Recompra"]
     pagina_seleccionada = st.sidebar.selectbox("Selecciona una página:", opciones_paginas_snackys)
 
     # Mostrar páginas para Snackys
+    if pagina_seleccionada == "Inicio":
+        pagina_inicio()
     if pagina_seleccionada == "Recompra":
         recompra_snackys()
     if pagina_seleccionada == "Ofertas" :
