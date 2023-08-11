@@ -647,11 +647,10 @@ def main():
         st.write("---")
 
     
-        col4, col5 = st.columns([2,1])
+        col4, col5 = st.columns(2)
 
         with col4 :
             # gráfico de cantidad de mensajes por fecha
-            st.write("gráfico de líneas")
             df_oferta_snackys['fecha'] = pd.to_datetime(df_oferta_snackys['fecha'])
             registros_por_dia = df_oferta_snackys['fecha'].value_counts().reset_index()
             registros_por_dia.columns = ['fecha', 'cantidad']
