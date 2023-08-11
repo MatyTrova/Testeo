@@ -574,18 +574,25 @@ def main():
             st.subheader(f"Bienvenido {cliente_pec[0]}")
         st.write("---")
 
+        # gráfico de torta
+        torta = df_oferta_snackys[(df_oferta_snackys["journeyStep"] == "RespuestaMensajeInicial")]
+        # Contamos la cantidad de suscriptos
+        subs = {"Suscriptos":     torta[torta["msgBody"].str.contains("\+")].shape[0] ,
+                "No suscriptos":    torta[torta["msgBody"].str.contains("\-")].shape[0]
+                    }
+
         # Tarjetas
         # Cantidad de conversaciones
-        cantidad_conversaciones = len(df_oferta_snackys["idCliente"].unique())
+        cantidad_conversaciones = len(df_oferta_snackys.loc[(df_oferta_snackys["journeyStep"] == "RespuestaMensajeInicial")].reset_index())
         # Conversaciones terminadas
-        conteo_terminadas = df_oferta_snackys["idCliente"].value_counts().reset_index()
-        conteo_terminadas = len(conteo_terminadas[conteo_terminadas["count"] >= 2])
+
+        conteo_terminadas = cantidad_conversaciones - 0
         # Conversaciones incompletas
         conteo_incompletas = df_oferta_snackys["idCliente"].value_counts().reset_index()
         conteo_incompletas = len(conteo_incompletas[conteo_incompletas["count"] == 1])
         # motivos_clientes_no_interesados
-        motivos_clientes_no_interesados = len( df_oferta_snackys.loc[(df_oferta_snackys["journeyStep"] == "RespuestaMotivoClienteParaNoSuscripcion") ,"userPhoneNumber"].reset_index()) 
-
+        motivos_clientes_no_interesados = len(df_oferta_snackys.loc[(df_oferta_snackys["journeyStep"] == "RespuestaMotivoClienteParaNoSuscripcion")].reset_index()) 
+        motivos_clientes_no_interesados = f"{motivos_clientes_no_interesados} de {subs['No suscriptos']}" 
 
         # Crear 5 tarjetas en la primera fila
         col1, col2, col3= st.columns(3)
@@ -632,10 +639,10 @@ def main():
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col3:
-            st.markdown('<div class="subheader">Motivos de clientes al no estar interesados</div>', unsafe_allow_html=True)
+            st.markdown('<div class="subheader">Cantidad de clientes que dejaron motivos para la no suscripción</div>', unsafe_allow_html=True)
             st.markdown(tarjeta3, unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
-            ver_motivos = st.checkbox("Mostrar comentarios")
+            ver_motivos = st.checkbox("Mostrar motivos")
             
         st.write("---")
 
@@ -663,35 +670,27 @@ def main():
             st.pyplot(gráfico2)
 
         with col5:
-            # gráfico de torta
-            st.write("gráfico de torta con '%' negativo y positivo")
-            torta = df_oferta_snackys[(df_oferta_snackys["journeyStep"] == "RespuestaMensajeInicial")]
-            # Contamos la cantidad de suscriptos
-            subs = {"Suscriptos":     torta[torta["msgBody"].str.contains("\+")].shape[0] ,
-                    "No suscriptos":    torta[torta["msgBody"].str.contains("\-")].shape[0]
-                    }
             if len(df_oferta_snackys) > 0 :
                 # Extrae las etiquetas y los valores del diccionario
                 etiquetas = list(subs.keys())
                 valores = list(subs.values())
                 total = sum(valores)
                 # Colores para el gráfico
-                colores = ['tab:green', 'tab:blue']
+                colores = ['tab:green', 'tab:red']
                 plt.figure(figsize=(6, 4))  
                 sns.set(style="whitegrid")
                 # Crea el gráfico de torta
                 plt.pie(valores, labels=etiquetas, colors=colores, autopct=lambda p: '{:.0f} ({:.1f}%)'.format(p * total / 100, p), startangle=90)
                 plt.axis('equal')  # Hace que el gráfico sea circular
                 gráfico11 = plt.gcf()
-                st.write("#### **Porcentaje de reviews**")
+                st.write("#### **Porcentaje de suscriptos**")
                 st.pyplot(gráfico11)
             else:
                 st.write("sin datos")
 
 
         st.write("---")
-
-        st.write("acá mnostrar los motivos de los clientes")   
+ 
         if ver_motivos:
             st.markdown("## **Comentarios**:")
             motivos_clientes = df_oferta_snackys.loc[(df_oferta_snackys["journeyStep"] == "RespuestaMotivoClienteParaNoSuscripcion") ,"userPhoneNumber"].reset_index()
