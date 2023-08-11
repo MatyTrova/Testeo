@@ -454,7 +454,7 @@ def main():
 
         # Tarjetas
         # Cantidad de conversaciones
-        cantidad_conversaciones = len(df_recompra["idCliente"].unique())
+        cantidad_conversaciones = len(df_recompra.loc[(df_recompra["journeyStep"] == "RespuestaMensajeInicial")].reset_index())
         # Conversaciones terminadas
         conteo_terminadas = df_recompra["idCliente"].value_counts().reset_index()
         conteo_terminadas = len(conteo_terminadas[conteo_terminadas["count"] >= 2])
@@ -490,19 +490,18 @@ def main():
         st.markdown(custom_css, unsafe_allow_html=True)
     
         # Variable de ejemplo con estilos en línea
-        tarjeta1 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
+        tarjeta1 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{cantidad_conversaciones}</div>'
         tarjeta2 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
         tarjeta3 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
         tarjeta4 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
-        tarjeta5 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
 
         # Contenido de las tarjetas
         with col1:
             st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
             st.markdown(tarjeta1, unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
-            st.write(f"Conversaciones terminadas:{00}")
-            st.write(f"Conversaciones incompletas:{00}")
+            st.write(f"+ Conversaciones terminadas: {00}")
+            st.write(f"+ Conversaciones incompletas: {00}")
 
         with col2:
             st.markdown('<div class="subheader">Recompra exitosa</div>', unsafe_allow_html=True)
@@ -513,7 +512,7 @@ def main():
             st.markdown('<div class="subheader">Intención de recompra</div>', unsafe_allow_html=True)
             st.markdown(tarjeta3, unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
-            ver_intenciones = st.checkbox("Ver clientes")
+            ver_intenciones = st.checkbox("Mostrar clientes ")
         with col4:
             st.markdown('<div class="subheader">Tia Snackys</div>', unsafe_allow_html=True)
             st.markdown(tarjeta4, unsafe_allow_html=True)
