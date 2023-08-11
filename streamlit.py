@@ -592,9 +592,10 @@ def main():
         # motivos_clientes_no_interesados
         motivos_clientes_no_interesados = len(df_oferta_snackys.loc[(df_oferta_snackys["journeyStep"] == "RespuestaMotivoClienteParaNoSuscripcion")].reset_index()) 
         motivos_clientes_no_interesados = f"{motivos_clientes_no_interesados} de {subs['No suscriptos']}" 
-
+        # clientes suscriptos
+        clientes_suscriptos = subs["Suscriptos"]
         # Crear 5 tarjetas en la primera fila
-        col1, col2, col3= st.columns(3)
+        col1, col2, col3, col4= st.columns(4)
 
         # Estilos CSS personalizados
         custom_css = """
@@ -618,28 +619,31 @@ def main():
     
         # Variable de ejemplo con estilos en línea
         tarjeta1 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{cantidad_conversaciones}</div>'
-        tarjeta2 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
-        tarjeta3 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{motivos_clientes_no_interesados}</div>'
+        tarjeta2 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{clientes_suscriptos}</div>'
+        tarjeta3 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
+        tarjeta4 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{motivos_clientes_no_interesados}</div>'
 
         # Contenido de las tarjetas
         with col1:
             st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
             st.markdown(tarjeta1, unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
-            col11, col22 = st.columns(2)
-            with col11 :
-                st.write(f"Conversaciones terminadas:{00}")
-            with col22 :
-                st.write(f"Conversaciones incompletas:{00}")
+            st.write(f"+ Conversaciones terminadas: {00}")
+            st.write(f"+ Conversaciones incompletas: {00}")
 
         with col2:
-            st.markdown('<div class="subheader">Clientes que se dieron de baja (Dejar de recibir)</div>', unsafe_allow_html=True)
+            st.markdown('<div class="subheader">Clientes suscriptos</div>', unsafe_allow_html=True)
             st.markdown(tarjeta2, unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
 
         with col3:
-            st.markdown('<div class="subheader">Cantidad de clientes que dejaron motivos</div>', unsafe_allow_html=True)
+            st.markdown('<div class="subheader">Clientes que se dieron de baja (Dejar de recibir)</div>', unsafe_allow_html=True)
             st.markdown(tarjeta3, unsafe_allow_html=True)
+            st.markdown('</div></div>', unsafe_allow_html=True)
+
+        with col4:
+            st.markdown('<div class="subheader">Cantidad de clientes que dejaron motivos</div>', unsafe_allow_html=True)
+            st.markdown(tarjeta4, unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
             ver_motivos = st.checkbox("Mostrar motivos")
             
@@ -703,6 +707,7 @@ def main():
                 msgbody_feedback = df_oferta_snackys.loc[(df_oferta_snackys["journeyStep"] == "RespuestaMotivoClienteParaNoSuscripcion") & (df_oferta_snackys["userPhoneNumber"] == seleccion_cliente), "msgBody"].str.capitalize()
                 for elemento in msgbody_feedback :
                     st.write(f"+ {elemento}")
+                    
         st.write("---")
 
 
