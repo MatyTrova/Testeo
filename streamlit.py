@@ -10,6 +10,7 @@ from wordcloud import WordCloud
 import pymysql
 from matplotlib.dates import DateFormatter, DayLocator
 
+
 # Configuramos la página
 st.set_page_config(
     page_title="Dashboard Desarrollos PEC",
@@ -263,7 +264,7 @@ def main():
             clientes_feedback = sorted(clientes_feedback["userPhoneNumber"].unique().tolist())
             clientes_feedback.insert(0, "Todos")
             seleccion_cliente = st.selectbox("Clientes", clientes_feedback)
-            if (seleccion_cliente) == "Todos":
+            if (seleccion_cliente == "Todos"):
                 msgbody_feedback1 = df_feedback.loc[(df_feedback["journeyStep"] == "RecepcionMensajeDeMejora") | (df_feedback["journeyStep"] == "EnvioComentarioDeMejora") ,"msgBody"].str.capitalize()
                 for elemento1 in msgbody_feedback1 :
                     st.write(f"+ {elemento1}")
@@ -419,21 +420,271 @@ def main():
                 msgbody_recompra.rename(columns={"msgBody": "lapso de tiempo" },inplace=True)
                 st.dataframe(msgbody_recompra,hide_index=True)
         
-        st.write("estaría bueno poner que productos quieren recomprar")
+
+    # SNACKYS
+    def recompra_snackys():
+        # Verificar si el usuario está autenticado
+        if not st.session_state.get('autenticado'):
+            st.error("Debe ingresar una contraseña válida en la página de inicio para acceder a esta página.")
+            st.stop() 
+        # Conexión a la base de datos
+        db_username = st.secrets["DB_USERNAME"]
+        db_password = st.secrets["DB_PASSWORD"]
+        db_host = st.secrets["DB_HOST"]
+        db_token = st.secrets["DB_TOKEN"]
+        conexion_string = f"mysql+pymysql://{db_username}:{db_password}@{db_host}/{db_token}"
+        engine = create_engine(conexion_string,pool_pre_ping=True)
+        # Query de recompra
+        query = f"""
+                SELECT e.*, c.businessPhoneNumber, c.clientName, c.userPhoneNumber
+                FROM experiencias e
+                JOIN clientes c ON (e.idCliente = c.idCliente)
+                WHERE e.journeyClassName IN ('EcommerceRecompraDeProducto' ,'EcommerceRecompraParaHoy') AND c.businessPhoneNumber = {businessnumber} ;
+                """
+        df_recompra = pd.read_sql(query, engine)
+        df_recompra.drop("hora",axis=1,inplace=True)
+        # Aquí también ocultamos el DF
+        #st.write("Dataframe")
+        #st.dataframe(df_recompra)
+        st.title("Dashboard Recompra")
+        if (len(df_recompra) > 0 ):
+            cliente_pec = df_recompra['clientName'].unique().tolist()
+            st.subheader(f"Bienvenido {cliente_pec[0]}")
+        st.write("---")
+
+        # Tarjetas
+        # Cantidad de conversaciones
+        cantidad_clientes = len(df_recompra["idCliente"].unique())
+        # Conversaciones terminadas
+        conteo_terminadas = df_recompra["idCliente"].value_counts().reset_index()
+        conteo_terminadas = len(conteo_terminadas[conteo_terminadas["count"] >= 2])
+        # Conversaciones incompletas
+        conteo_incompletas = df_recompra["idCliente"].value_counts().reset_index()
+        conteo_incompletas = len(conteo_incompletas[conteo_incompletas["count"] == 1])
+        # Intencion de recompra
+        intencion_recompra = len(df_recompra.loc[(df_recompra["journeyClassName"] == "EcommerceRecompraDeProducto") & (df_recompra["journeyStep"] == "RespuestaMensajeInicial") & (df_recompra["msgBody"] == "Sí, necesito comprarlo de nuevo")]) 
+        # Recompra exitosa
+        recompra_exitosa = 0
+
+        # Crear 5 tarjetas en la primera fila
+        col1, col2, col3, col4 = st.columns(4)
+
+        # Estilos CSS personalizados
+        custom_css = """
+        <style>
+            .tarjeta {
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+                background-color: #f9f9f9;
+                text-align: center;
+            }
+            .subheader {
+                font-size: 20px;
+                font-weight: bold;
+                color: #333;
+            }
+        </style>
+        """
+        # Agregar el estilo CSS personalizado utilizando st.markdown
+        st.markdown(custom_css, unsafe_allow_html=True)
+    
+        # Variable de ejemplo con estilos en línea
+        tarjeta1 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
+        tarjeta2 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
+        tarjeta3 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
+        tarjeta4 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
+        tarjeta5 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
+
+        # Contenido de las tarjetas
+        with col1:
+            st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
+            st.markdown(tarjeta1, unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
+            col11, col22 = st.columns(2)
+            with col11 :
+                st.write(f"Conversaciones terminadas:{00}")
+            with col22 :
+                st.write(f"Conversaciones incompletas:{00}")
+
+        with col2:
+            st.markdown('<div class="subheader">Recompra exitosa</div>', unsafe_allow_html=True)
+            st.markdown(tarjeta2, unsafe_allow_html=True)
+            st.markdown('</div></div>', unsafe_allow_html=True)
+
+        with col3:
+            st.markdown('<div class="subheader">Intención de recompra</div>', unsafe_allow_html=True)
+            st.markdown(tarjeta3, unsafe_allow_html=True)
+            st.markdown('</div></div>', unsafe_allow_html=True)
+            ver_intenciones = st.checkbox("Mostrar clientes")
+        with col4:
+            st.markdown('<div class="subheader">Tia Sanackys</div>', unsafe_allow_html=True)
+            st.markdown(tarjeta4, unsafe_allow_html=True)
+            st.markdown('</div></div>', unsafe_allow_html=True)
+            ver_clientes = st.checkbox("Mostrar clientes")
+
+        st.write("---")
+
+    
+        col5, col6 = st.columns([2,1])
+
+        with col5 :
+            # gráfico de cantidad de mensajes por fecha
+            st.write("gráfico de líneas")
+
+        with col6:
+            # gráfico de barras horizontales de categorias 
+            st.write("categorias de productos mas seleccionados")
+            
+        st.write("---")
+
+        col7, col8 = st.columns(2)
+
+        with col7 :
+            st.write("gráfico de torta con '%' de recompra + y -")
+
+        with col8 :
+            st.write("Acá mostramos los clientes del tia snackys y de las intenciones de recompra")
+
+    # SNACKYS
+    def oferta_snackys():
+        # Verificar si el usuario está autenticado
+        if not st.session_state.get('autenticado'):
+            st.error("Debe ingresar una contraseña válida en la página de inicio para acceder a esta página.")
+            st.stop() 
+        # Conexión a la base de datos
+        db_username = st.secrets["DB_USERNAME"]
+        db_password = st.secrets["DB_PASSWORD"]
+        db_host = st.secrets["DB_HOST"]
+        db_token = st.secrets["DB_TOKEN"]
+        conexion_string = f"mysql+pymysql://{db_username}:{db_password}@{db_host}/{db_token}"
+        engine = create_engine(conexion_string,pool_pre_ping=True)
+        # Query de recompra
+        query = f"""
+                SELECT e.*, c.businessPhoneNumber, c.clientName, c.userPhoneNumber
+                FROM experiencias e
+                JOIN clientes c ON (e.idCliente = c.idCliente)
+                WHERE e.journeyClassName IN ('EcommerceRecompraDeProducto' ,'EcommerceRecompraParaHoy') AND c.businessPhoneNumber = {businessnumber} ;
+                """
+        df_recompra = pd.read_sql(query, engine)
+        df_recompra.drop("hora",axis=1,inplace=True)
+        # Aquí también ocultamos el DF
+        #st.write("Dataframe")
+        #st.dataframe(df_recompra)
+        st.title("Dashboard ofertas")
+        if (len(df_recompra) > 0 ):
+            cliente_pec = df_recompra['clientName'].unique().tolist()
+            st.subheader(f"Bienvenido {cliente_pec[0]}")
+        st.write("---")
+
+        # Tarjetas
+        # Cantidad de conversaciones
+        cantidad_clientes = len(df_recompra["idCliente"].unique())
+        # Conversaciones terminadas
+        conteo_terminadas = df_recompra["idCliente"].value_counts().reset_index()
+        conteo_terminadas = len(conteo_terminadas[conteo_terminadas["count"] >= 2])
+        # Conversaciones incompletas
+        conteo_incompletas = df_recompra["idCliente"].value_counts().reset_index()
+        conteo_incompletas = len(conteo_incompletas[conteo_incompletas["count"] == 1])
+        # Intencion de recompra
+        intencion_recompra = len(df_recompra.loc[(df_recompra["journeyClassName"] == "EcommerceRecompraDeProducto") & (df_recompra["journeyStep"] == "RespuestaMensajeInicial") & (df_recompra["msgBody"] == "Sí, necesito comprarlo de nuevo")]) 
+        # Recompra exitosa
+        recompra_exitosa = 0
+
+        # Crear 5 tarjetas en la primera fila
+        col1, col2, col3= st.columns(3)
+
+        # Estilos CSS personalizados
+        custom_css = """
+        <style>
+            .tarjeta {
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+                background-color: #f9f9f9;
+                text-align: center;
+            }
+            .subheader {
+                font-size: 20px;
+                font-weight: bold;
+                color: #333;
+            }
+        </style>
+        """
+        # Agregar el estilo CSS personalizado utilizando st.markdown
+        st.markdown(custom_css, unsafe_allow_html=True)
+    
+        # Variable de ejemplo con estilos en línea
+        tarjeta1 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
+        tarjeta2 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
+        tarjeta3 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
+        tarjeta4 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
+        tarjeta5 = f'<div class="tarjeta" style="font-size: 30px; color: #00008B;">{00}</div>'
+
+        # Contenido de las tarjetas
+        with col1:
+            st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
+            st.markdown(tarjeta1, unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
+            col11, col22 = st.columns(2)
+            with col11 :
+                st.write(f"Conversaciones terminadas:{00}")
+            with col22 :
+                st.write(f"Conversaciones incompletas:{00}")
+
+        with col2:
+            st.markdown('<div class="subheader">Clientes que se dieron de baja (Dejar de recibir)</div>', unsafe_allow_html=True)
+            st.markdown(tarjeta2, unsafe_allow_html=True)
+            st.markdown('</div></div>', unsafe_allow_html=True)
+
+        with col3:
+            st.markdown('<div class="subheader">Motivos de clientes al no estar interesados</div>', unsafe_allow_html=True)
+            st.markdown(tarjeta3, unsafe_allow_html=True)
+            st.markdown('</div></div>', unsafe_allow_html=True)
+            ver_motivos = st.checkbox("Mostrar comentarios")
+            
+        st.write("---")
+
+    
+        col4, col5 = st.columns([2,1])
+
+        with col4 :
+            # gráfico de cantidad de mensajes por fecha
+            st.write("gráfico de líneas")
+
+        with col5:
+            # gráfico de torta
+            st.write("gráfico de torta con '%' negativo y positivo")
+
+        st.write("---")
+
+        st.write("acá mnostrar los motivos de los clientes")   
+       
+        st.write("---")
+
 
     # Opciones del sidebar para seleccionar página
-    opciones_paginas = ["Inicio", "Feedback", "Recompra"]
-    pagina_seleccionada = st.sidebar.selectbox("Selecciona una página:", opciones_paginas)
-
+    #opciones_paginas = ["Inicio", "Feedback", "Recompra"]
+    #pagina_seleccionada = st.sidebar.selectbox("Selecciona una página:", opciones_paginas)
+    
     # Mostrar el contenido de la página seleccionada
-    if pagina_seleccionada == "Inicio":
-        pagina_inicio()
-    if pagina_seleccionada == "Feedback" :
-        mostrar_feedback()
-    elif pagina_seleccionada == "Recompra":
-        mostrar_recompra()
+    #if pagina_seleccionada == "Inicio":
+    #    pagina_inicio()
+    #if pagina_seleccionada == "Feedback" :
+    #    mostrar_feedback()
+    #elif pagina_seleccionada == "Recompra":
+    #    mostrar_recompra()
   
+    # Snackys
+    opciones_paginas_snackys = ["Ofertas", "Recompra"]
+    pagina_seleccionada = st.sidebar.selectbox("Selecciona una página:", opciones_paginas_snackys)
 
+    # Mostrar páginas para Snackys
+    if pagina_seleccionada == "Recompra":
+        recompra_snackys()
+    if pagina_seleccionada == "Ofertas" :
+        oferta_snackys()
+  
 
 # Iniciar la aplicación
 if __name__ == "__main__":
