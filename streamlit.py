@@ -676,7 +676,7 @@ def main():
                 total = sum(valores)
                 # Colores para el gráfico
                 colores = ['tab:green', 'tab:red']
-                plt.figure(figsize=(8, 6))  
+                plt.figure(figsize=(6, 3))  
                 sns.set(style="whitegrid")
                 # Crea el gráfico de torta
                 plt.pie(valores, labels=etiquetas, colors=colores, autopct=lambda p: '{:.0f} ({:.1f}%)'.format(p * total / 100, p), startangle=90)
