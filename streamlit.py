@@ -571,7 +571,7 @@ def main():
         
         st.write("---")
 
-        col7, col8 = st.columns(2)
+        col7, col8 = st.columns([2,1])
 
         with col7 :
             if (len(df_recompra) > 0):
@@ -598,7 +598,7 @@ def main():
                 df_tia = df_recompra.loc[(df_recompra["msgBody"].str.contains("Tia Snackys")),["fecha","userPhoneNumber"]]
                 st.dataframe(df_tia)
 
-        
+        st.write("---")
 
 
     # SNACKYS
