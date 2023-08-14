@@ -453,7 +453,7 @@ def main():
         st.write("---")
 
         # gráfico de torta
-        torta = df_recompra[(df_recompra["journeyClassName"] == "GenerarRecompraGenteInactiva")]
+        torta = df_recompra[(df_recompra["journeyClassName"] == "GenerarRecompraGenteInactiva") & (df_recompra["journeyStep"] == "RespuestaMensajeInicial")]
         # Contamos la cantidad de + o - de recompra
         recompras = {"Positiva":     torta[torta["msgBody"].str.contains("\+")].shape[0] ,
                     "Negativa":    torta[torta["msgBody"].str.contains("\-")].shape[0]
