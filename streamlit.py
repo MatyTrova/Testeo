@@ -571,32 +571,31 @@ def main():
         
         st.write("---")
 
-        col7, col8 = st.columns([2,1])
+        if (len(df_recompra) > 0):
+            # gráfico de barras horizontales de categorias 
+            filtro = (df_recompra["journeyClassName"] == "GenerarRecompraGenteInactiva") & (df_recompra["journeyStep"] == "RespuestaQueTipoDeProductoBuscas")
+            data_counts = df_recompra.loc[filtro, "msgBody"].value_counts()
+            # Configura el estilo de Seaborn (opcional)
+            sns.set(style="whitegrid")
+            # Crea el gráfico de barras horizontales
+            plt.figure(figsize=(10, 6))  # Ajusta el tamaño del gráfico si es necesario
+            barplot = sns.barplot(x=data_counts.values, y=data_counts.index, orient="h")
+            # Agrega etiquetas y título
+            plt.xlabel("")
+            plt.ylabel("")
+            gráfico_productos = plt.gcf()
+            st.write("#### **Productos más seleccionados**")
+            st.pyplot(gráfico_productos)
+        else: 
+             st.write("sin datos")
 
-        with col7 :
-            if (len(df_recompra) > 0):
-                # gráfico de barras horizontales de categorias 
-                filtro = (df_recompra["journeyClassName"] == "GenerarRecompraGenteInactiva") & (df_recompra["journeyStep"] == "RespuestaQueTipoDeProductoBuscas")
-                data_counts = df_recompra.loc[filtro, "msgBody"].value_counts()
-                # Configura el estilo de Seaborn (opcional)
-                sns.set(style="whitegrid")
-                # Crea el gráfico de barras horizontales
-                plt.figure(figsize=(10, 6))  # Ajusta el tamaño del gráfico si es necesario
-                barplot = sns.barplot(x=data_counts.values, y=data_counts.index, orient="h")
-                # Agrega etiquetas y título
-                plt.xlabel("")
-                plt.ylabel("")
-                gráfico_productos = plt.gcf()
-                st.write("#### **Productos más seleccionados**")
-                st.pyplot(gráfico_productos)
-            else: 
-                st.write("sin datos")
-
+        st.write("---")
+        
+        # para ver clientes de tia snackys
         if ver_clientes :
-            with col8 :
-                st.write("Clientes que buscan contacto con Tia Snackys:")
-                df_tia = df_recompra.loc[(df_recompra["msgBody"].str.contains("Tia Snackys")),["fecha","userPhoneNumber"]]
-                st.dataframe(df_tia)
+            st.markdown("## **Clientes que buscan contacto con Tia Snackys**:")
+            df_tia = df_recompra.loc[(df_recompra["msgBody"].str.contains("Tia Snackys")),["fecha","userPhoneNumber"]]
+            st.dataframe(df_tia)
 
         st.write("---")
 
