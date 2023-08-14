@@ -573,9 +573,14 @@ def main():
 
         if (len(df_recompra) > 0):
             # gráfico de barras horizontales de categorias 
-            filtro = (df_recompra["msgBody"].str.contains("(pp)"))
-            data_counts = df_recompra.loc[filtro, "msgBody"].value_counts()
-            # Configura el estilo de Seaborn (opcional)
+            filtro = (df_recompra["msgBody"].str.contains("pp"))
+            data_counts = df_recompra.loc[filtro, "msgBody"].value_counts().reset_index()
+            data_counts.loc[(data_counts["msgBody"].str.contains("sazonador")),"msgBody" ] = "Sazonador"
+            data_counts.loc[(data_counts["msgBody"].str.contains("snack hipoalergénico")),"msgBody" ] = "Snack Hipoalergénico"
+            data_counts.loc[(data_counts["msgBody"].str.contains("masticable")),"msgBody" ] = "Masticable"
+            data_counts.loc[(data_counts["msgBody"].str.contains("snacks liofinizados")),"msgBody" ] = "Snacks Liofinizados"
+            data_counts.loc[(data_counts["msgBody"].str.contains("Busco algo para dar como premio")),"msgBody" ] = "Busco algo para dar como premio"
+                        # Configura el estilo de Seaborn (opcional)
             sns.set(style="whitegrid")
             # Crea el gráfico de barras horizontales
             plt.figure(figsize=(10, 6))  # Ajusta el tamaño del gráfico si es necesario
