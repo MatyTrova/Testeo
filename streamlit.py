@@ -573,7 +573,7 @@ def main():
 
         if (len(df_recompra) > 0):
             # gráfico de barras horizontales de categorias 
-            filtro = (df_recompra["journeyClassName"] == "GenerarRecompraGenteInactiva") & (df_recompra["journeyStep"] == "RespuestaQueTipoDeProductoBuscas")
+            filtro = (df_recompra["msgBody"].str.contains("(pp)"))
             data_counts = df_recompra.loc[filtro, "msgBody"].value_counts()
             # Configura el estilo de Seaborn (opcional)
             sns.set(style="whitegrid")
