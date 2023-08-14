@@ -507,8 +507,8 @@ def main():
             st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
             st.markdown(tarjeta1, unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
-            st.write(f"+ Conversaciones terminadas: *{conversaciones_terminadas}*")
-            st.write(f"+ Conversaciones incompletas: *{conversaciones_incompletas}*")
+            st.write(f"+ Conversaciones terminadas: **{conversaciones_terminadas}**")
+            st.write(f"+ Conversaciones incompletas: **{conversaciones_incompletas}**")
 
         with col2:
             st.markdown('<div class="subheader">Intención de recompra</div>', unsafe_allow_html=True)
@@ -682,8 +682,8 @@ def main():
             st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
             st.markdown(tarjeta1, unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
-            st.write(f"+ Conversaciones terminadas: *{conversaciones_terminadas}*")
-            st.write(f"+ Conversaciones incompletas: *{conversaciones_incompletas}*")
+            st.write(f"+ Conversaciones terminadas: **{conversaciones_terminadas}**")
+            st.write(f"+ Conversaciones incompletas: **{conversaciones_incompletas}**")
 
         with col2:
             st.markdown('<div class="subheader">Clientes suscriptos</div>', unsafe_allow_html=True)
