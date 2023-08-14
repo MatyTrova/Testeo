@@ -584,7 +584,7 @@ def main():
             sns.set(style="whitegrid")
             # Crea el gráfico de barras horizontales
             plt.figure(figsize=(10, 6))  # Ajusta el tamaño del gráfico si es necesario
-            barplot = sns.barplot(x=data_counts.values, y=data_counts.index, orient="h")
+            barplot = sns.barplot(x="count", y="msgBodt",data=data_counts, orient="h")
             # Agrega etiquetas y título
             plt.xlabel("")
             plt.ylabel("")
