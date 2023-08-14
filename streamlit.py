@@ -584,14 +584,15 @@ def main():
         # Cantidad de conversaciones
         cantidad_conversaciones = len(df_oferta_snackys.loc[(df_oferta_snackys["journeyStep"] == "RespuestaMensajeInicial")].reset_index())
         # motivos_clientes_no_interesados
-        motivos_clientes_no_interesados = len(df_oferta_snackys.loc[(df_oferta_snackys["journeyStep"] == "RespuestaMotivoClienteParaNoSuscripcion")].reset_index()) 
-        motivos_clientes_no_interesados = f"{motivos_clientes_no_interesados} de {subs['No suscriptos']}" 
+        motivos_clientes_no_interesados1 = len(df_oferta_snackys.loc[(df_oferta_snackys["journeyStep"] == "RespuestaMotivoClienteParaNoSuscripcion")].reset_index()) 
+        motivos_clientes_no_interesados = f"{motivos_clientes_no_interesados1} de {subs['No suscriptos']}" 
         # Conversaciones terminadas
-        conversaciones_terminadas = len(df_oferta_snackys[df_oferta_snackys["msgBody"].str.contains("ff")]) + motivos_clientes_no_interesados
+        conversaciones_terminadas = len(df_oferta_snackys[df_oferta_snackys["msgBody"].str.contains("ff")]) + motivos_clientes_no_interesados1
         # Conversaciones_incompletas 
         conversaciones_incompletas = cantidad_conversaciones - conversaciones_terminadas
         # clientes suscriptos
         clientes_suscriptos = subs["Suscriptos"]
+
         # Crear 5 tarjetas en la primera fila
         col1, col2, col3, col4= st.columns(4)
 
