@@ -583,15 +583,13 @@ def main():
         # Tarjetas
         # Cantidad de conversaciones
         cantidad_conversaciones = len(df_oferta_snackys.loc[(df_oferta_snackys["journeyStep"] == "RespuestaMensajeInicial")].reset_index())
-        # Conversaciones terminadas
-
-        conteo_terminadas = cantidad_conversaciones - 0
-        # Conversaciones incompletas
-        conteo_incompletas = df_oferta_snackys["idCliente"].value_counts().reset_index()
-        conteo_incompletas = len(conteo_incompletas[conteo_incompletas["count"] == 1])
         # motivos_clientes_no_interesados
         motivos_clientes_no_interesados = len(df_oferta_snackys.loc[(df_oferta_snackys["journeyStep"] == "RespuestaMotivoClienteParaNoSuscripcion")].reset_index()) 
         motivos_clientes_no_interesados = f"{motivos_clientes_no_interesados} de {subs['No suscriptos']}" 
+        # Conversaciones terminadas
+        conversaciones_terminadas = len(df_oferta_snackys[df_oferta_snackys["msgBody"].str.contains("ff")]) + motivos_clientes_no_interesados
+        # Conversaciones_incompletas 
+        conversaciones_incompletas = cantidad_conversaciones - conversaciones_terminadas
         # clientes suscriptos
         clientes_suscriptos = subs["Suscriptos"]
         # Crear 5 tarjetas en la primera fila
@@ -628,8 +626,8 @@ def main():
             st.markdown('<div class="subheader">Cantidad de conversaciones</div>', unsafe_allow_html=True)
             st.markdown(tarjeta1, unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
-            st.write(f"+ Conversaciones terminadas: {00}")
-            st.write(f"+ Conversaciones incompletas: {00}")
+            st.write(f"+ Conversaciones terminadas: {conversaciones_terminadas}")
+            st.write(f"+ Conversaciones incompletas: {conversaciones_incompletas}")
 
         with col2:
             st.markdown('<div class="subheader">Clientes suscriptos</div>', unsafe_allow_html=True)
