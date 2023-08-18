@@ -444,8 +444,8 @@ def main():
         df_recompra = pd.read_sql(query, engine)
         df_recompra.drop("hora",axis=1,inplace=True)
         # Aquí también ocultamos el DF
-        st.write("Dataframe")
-        st.dataframe(df_recompra)
+        #st.write("Dataframe")
+        #st.dataframe(df_recompra)
         st.title("Dashboard Recompra")
         if (len(df_recompra) > 0 ):
             cliente_pec = df_recompra['clientName'].unique().tolist()
@@ -628,8 +628,8 @@ def main():
         df_oferta_snackys = pd.read_sql(query, engine)
         df_oferta_snackys.drop("hora",axis=1,inplace=True)
         # Aquí también ocultamos el DF
-        st.write("Dataframe")
-        st.dataframe(df_oferta_snackys)
+        #st.write("Dataframe")
+        #st.dataframe(df_oferta_snackys)
         st.title("Dashboard ofertas")
         if (len(df_oferta_snackys) > 0 ):
             cliente_pec = df_oferta_snackys['clientName'].unique().tolist()
